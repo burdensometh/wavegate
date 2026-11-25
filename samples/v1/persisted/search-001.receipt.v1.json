@@ -1,0 +1,1216 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "releaseUid": "search-001",
+  "service": {
+    "namespace": "sandbox",
+    "name": "search"
+  },
+  "checkpointSequence": 0,
+  "checkpointDigest": "78682e6bed11a10a97b4bf18f75dd8fbb8f45dfafd3f940a962c563eafdefd48",
+  "decisions": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 11,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReleaseObserved",
+      "reason": "DesiredStateRead",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 11,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 0,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "3ba6b54c85aa41130bfad902689ac47722af44ab6c18b787dd285fe43e24c2e0",
+      "digest": "68a88824b53edc1a5e8806153f77cd3ec03fef615eba4833161f5d0122ab6621"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 12,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ConditionChanged",
+      "reason": "WatchSynchronized",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 12,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "68a88824b53edc1a5e8806153f77cd3ec03fef615eba4833161f5d0122ab6621",
+      "digest": "708ba02b06e9f7ced81b694aea5c0e6b0464950eccb419b390fe9622e197acdd"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 13,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReservationGranted",
+      "reason": "NamespaceBudgetAvailable",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 13,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "708ba02b06e9f7ced81b694aea5c0e6b0464950eccb419b390fe9622e197acdd",
+      "digest": "645ab22c4cea5ce40633ef7dc2a42daedd49f7e38593c365e5aac29e940bccf1"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 14,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficPrepared",
+      "reason": "InstallStableBinding",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 14,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "intent": {
+          "operation": "7fd30f66c56eb66a980d9540403723255b7bdb8fc9672b279d4c286bdfdefec1",
+          "expectedVersion": 0,
+          "kind": "Initialize",
+          "step": -1,
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "645ab22c4cea5ce40633ef7dc2a42daedd49f7e38593c365e5aac29e940bccf1",
+      "digest": "9843de5566c7f6f21ee8446ca17e2ab18138ab7d5cdf5a3ebb6dc6471e46b92e"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 15,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficCommitted",
+      "reason": "Initialize",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 15,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 3,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 3,
+          "operation": "7fd30f66c56eb66a980d9540403723255b7bdb8fc9672b279d4c286bdfdefec1",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "9843de5566c7f6f21ee8446ca17e2ab18138ab7d5cdf5a3ebb6dc6471e46b92e",
+      "digest": "1ca1830bb8400872ce5a0ea9e3d1773394f6cd005550b69e424ce6407945f713"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 16,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficPrepared",
+      "reason": "EndpointsReady",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 16,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 3,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 3,
+          "operation": "7fd30f66c56eb66a980d9540403723255b7bdb8fc9672b279d4c286bdfdefec1",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "5d1add25ee56cf19bc761ed829455377666405b5f41eb18fa69529c33a32f36c",
+          "expectedVersion": 3,
+          "kind": "WeightStep",
+          "step": 0,
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 25,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "1ca1830bb8400872ce5a0ea9e3d1773394f6cd005550b69e424ce6407945f713",
+      "digest": "9a02d87421a75439936d4c460b15287aec03aabdc34be43b91037b0146f108ad"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 17,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficCommitted",
+      "reason": "WeightStep",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 17,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 4,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 4,
+          "operation": "5d1add25ee56cf19bc761ed829455377666405b5f41eb18fa69529c33a32f36c",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 25,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "bindingVersion": 4,
+          "start": "2026-11-25T08:00:00Z",
+          "end": "2026-11-25T08:00:02Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "9a02d87421a75439936d4c460b15287aec03aabdc34be43b91037b0146f108ad",
+      "digest": "f5c6334267fdbae2c969276698e7928d5cdbff08197204f6094b7ef5e42ee8aa"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 23,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "WindowEvaluated",
+      "reason": "CandidateErrorRate",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 23,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 4,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "CandidateErrorRate",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "sandbox",
+                "name": "search"
+              },
+              "bindingVersion": 4,
+              "start": "2026-11-25T08:00:00Z",
+              "end": "2026-11-25T08:00:02Z"
+            },
+            "sampleVersion": 300,
+            "sampleDigest": "e3812593883a0de61cab3b754263d2180d2151ea3f490a30c1e8c18f099bd84e",
+            "stable": {
+              "count": 75,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 25,
+              "failed": 25,
+              "totalLatencyMs": 0
+            },
+            "result": "Fail",
+            "reason": "CandidateErrorRate"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 4,
+          "operation": "5d1add25ee56cf19bc761ed829455377666405b5f41eb18fa69529c33a32f36c",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 25,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "bindingVersion": 4,
+          "start": "2026-11-25T08:00:00Z",
+          "end": "2026-11-25T08:00:02Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "805ef23b15689334f28acf9eae82d983393bd49a1250eceac94179393e7350b6",
+      "digest": "dcc4f8327d2701bf1a05e249cc52688938c19b1711b5ff4560151a7c789acd3c"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 24,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "TrafficPrepared",
+      "reason": "CandidateErrorRate",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 24,
+          "phase": "RollingBack",
+          "step": 0,
+          "bindingVersion": 4,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "CandidateErrorRate",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "CandidateErrorRate",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "sandbox",
+                "name": "search"
+              },
+              "bindingVersion": 4,
+              "start": "2026-11-25T08:00:00Z",
+              "end": "2026-11-25T08:00:02Z"
+            },
+            "sampleVersion": 300,
+            "sampleDigest": "e3812593883a0de61cab3b754263d2180d2151ea3f490a30c1e8c18f099bd84e",
+            "stable": {
+              "count": 75,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 25,
+              "failed": 25,
+              "totalLatencyMs": 0
+            },
+            "result": "Fail",
+            "reason": "CandidateErrorRate"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 4,
+          "operation": "5d1add25ee56cf19bc761ed829455377666405b5f41eb18fa69529c33a32f36c",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 25,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "search-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "038986fdb3b5f59f4441903e1febe9da07aa51a652525a980f5f3dbc59de627f",
+          "expectedVersion": 4,
+          "kind": "RollBack",
+          "step": -1,
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "resourceVersion": 13,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "dcc4f8327d2701bf1a05e249cc52688938c19b1711b5ff4560151a7c789acd3c",
+      "digest": "4d50aaba2ea801de9c079a877f10e35f5d5222cf007c37be74bdea307126eda8"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 25,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "TrafficCommitted",
+      "reason": "RollBack",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "name": "search-rollout",
+          "uid": "search-001",
+          "resourceVersion": 3,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            25
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "sandbox",
+            "name": "search"
+          },
+          "releaseUid": "search-001",
+          "observedVersion": 3,
+          "decisionSequence": 25,
+          "phase": "Aborted",
+          "step": -1,
+          "bindingVersion": 6,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "CandidateErrorRate",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": false,
+              "reason": "ReservationReleased",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "CandidateErrorRate",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Completed",
+              "status": true,
+              "reason": "StableRestored",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "sandbox",
+                "name": "search"
+              },
+              "bindingVersion": 4,
+              "start": "2026-11-25T08:00:00Z",
+              "end": "2026-11-25T08:00:02Z"
+            },
+            "sampleVersion": 300,
+            "sampleDigest": "e3812593883a0de61cab3b754263d2180d2151ea3f490a30c1e8c18f099bd84e",
+            "stable": {
+              "count": 75,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 25,
+              "failed": 25,
+              "totalLatencyMs": 0
+            },
+            "result": "Fail",
+            "reason": "CandidateErrorRate"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "search-001",
+          "resourceVersion": 6,
+          "operation": "038986fdb3b5f59f4441903e1febe9da07aa51a652525a980f5f3dbc59de627f",
+          "appliedAt": "2026-11-25T08:00:05Z",
+          "rule": {
+            "service": {
+              "namespace": "sandbox",
+              "name": "search"
+            },
+            "stable": "blue-v1",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "search-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "search-node-b-stable"
+              }
+            ],
+            "candidateTargets": [],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        }
+      },
+      "previousDigest": "4d50aaba2ea801de9c079a877f10e35f5d5222cf007c37be74bdea307126eda8",
+      "digest": "a66a906d51db14c6498e53b3ea144e9f6e8b2db24800823607fc3d5362d91cec"
+    }
+  ],
+  "lastDecision": 25,
+  "generatedAt": "2026-11-25T08:00:07Z",
+  "digest": "e8b109b880eebc7002e21f42859b5d809a3d062c18b419123bffc1ec9523e92e"
+}

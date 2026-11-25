@@ -1,0 +1,21 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "listen": "127.0.0.1:8080",
+  "stateDirectory": "var/wavegate",
+  "defaultQuota": {
+    "releases": 2,
+    "candidateUnits": 4
+  },
+  "quotas": {
+    "shop": {
+      "releases": 1,
+      "candidateUnits": 2
+    }
+  },
+  "endpointHistory": 256,
+  "journalRetention": 128,
+  "reconcileMs": 200,
+  "watchRetryMs": 100,
+  "upstreamTimeoutMs": 3000,
+  "drainMs": 2000
+}

@@ -1,0 +1,1341 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "samples": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-101",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-102",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-103",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-104",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-105",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-106",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-107",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-108",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-109",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-110",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-111",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-112",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-113",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-114",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-115",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-116",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-117",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-118",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-119",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-120",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-121",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-122",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-123",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-124",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-125",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-126",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-127",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-128",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-129",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-130",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-131",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-132",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-133",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-134",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-135",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-136",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-137",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-138",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-139",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-140",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-141",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-142",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-143",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-144",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-145",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-146",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-147",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-148",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-149",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-150",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-151",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-152",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-153",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-154",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-155",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-156",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-157",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-158",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-159",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-160",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-161",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-162",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-163",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-164",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-165",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-166",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-167",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-168",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-169",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-170",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-171",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-172",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-173",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-174",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-175",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-176",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-177",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-178",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-179",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-180",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-181",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-182",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-183",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-184",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-185",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-186",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-187",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-188",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-189",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-190",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-191",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-192",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-193",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-194",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-195",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-196",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-197",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-198",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-199",
+      "role": "stable",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "bindingVersion": 4,
+      "id": "route-109adf978f7b18596934d1a2-200",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:00Z",
+      "latencyMs": 0,
+      "failed": true
+    }
+  ],
+  "sealed": {
+    "policy": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "verdict": {
+      "apiVersion": "wavegate.io/v1",
+      "key": {
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "bindingVersion": 4,
+        "start": "2026-11-25T08:00:00Z",
+        "end": "2026-11-25T08:00:02Z"
+      },
+      "sampleVersion": 300,
+      "sampleDigest": "e3812593883a0de61cab3b754263d2180d2151ea3f490a30c1e8c18f099bd84e",
+      "stable": {
+        "count": 75,
+        "failed": 0,
+        "totalLatencyMs": 0
+      },
+      "candidate": {
+        "count": 25,
+        "failed": 25,
+        "totalLatencyMs": 0
+      },
+      "result": "Fail",
+      "reason": "CandidateErrorRate"
+    },
+    "sealedAt": "2026-11-25T08:00:05Z"
+  }
+}

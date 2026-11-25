@@ -1,0 +1,252 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "primary": {
+    "apiVersion": "wavegate.io/v1",
+    "service": {
+      "namespace": "shop",
+      "name": "checkout"
+    },
+    "name": "checkout-rollout",
+    "uid": "checkout-001",
+    "resourceVersion": 0,
+    "stable": "blue-v1",
+    "candidate": "blue-v2",
+    "steps": [
+      10,
+      40
+    ],
+    "window": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "minReady": 1,
+    "paused": false,
+    "abort": false
+  },
+  "queued": {
+    "apiVersion": "wavegate.io/v1",
+    "service": {
+      "namespace": "shop",
+      "name": "catalog"
+    },
+    "name": "catalog-rollout",
+    "uid": "catalog-001",
+    "resourceVersion": 0,
+    "stable": "blue-v1",
+    "candidate": "blue-v2",
+    "steps": [
+      20
+    ],
+    "window": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "minReady": 1,
+    "paused": false,
+    "abort": false
+  },
+  "isolated": {
+    "apiVersion": "wavegate.io/v1",
+    "service": {
+      "namespace": "sandbox",
+      "name": "search"
+    },
+    "name": "search-rollout",
+    "uid": "search-001",
+    "resourceVersion": 0,
+    "stable": "blue-v1",
+    "candidate": "blue-v2",
+    "steps": [
+      25
+    ],
+    "window": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "minReady": 1,
+    "paused": false,
+    "abort": false
+  },
+  "endpoints": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "node": "node-a",
+      "name": "stable",
+      "uid": "checkout-node-a-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "node": "node-b",
+      "name": "stable",
+      "uid": "checkout-node-b-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "node": "node-a",
+      "name": "canary",
+      "uid": "checkout-node-a-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": false,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "node": "node-b",
+      "name": "canary",
+      "uid": "checkout-node-b-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "catalog"
+      },
+      "node": "node-a",
+      "name": "stable",
+      "uid": "catalog-node-a-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "catalog"
+      },
+      "node": "node-b",
+      "name": "stable",
+      "uid": "catalog-node-b-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "catalog"
+      },
+      "node": "node-a",
+      "name": "canary",
+      "uid": "catalog-node-a-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": false,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "catalog"
+      },
+      "node": "node-b",
+      "name": "canary",
+      "uid": "catalog-node-b-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "node": "node-a",
+      "name": "stable",
+      "uid": "search-node-a-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "node": "node-b",
+      "name": "stable",
+      "uid": "search-node-b-stable",
+      "revision": "blue-v1",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "node": "node-a",
+      "name": "canary",
+      "uid": "search-node-a-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": false,
+      "resourceVersion": 0
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "sandbox",
+        "name": "search"
+      },
+      "node": "node-b",
+      "name": "canary",
+      "uid": "search-node-b-canary",
+      "revision": "blue-v2",
+      "address": "http://127.0.0.1:1",
+      "ready": true,
+      "resourceVersion": 0
+    }
+  ],
+  "failingEndpoints": [
+    "search-node-b-canary"
+  ]
+}

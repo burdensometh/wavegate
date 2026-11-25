@@ -1,0 +1,252 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "observations": [
+    {
+      "flow": "progress",
+      "phase": "stable-only",
+      "probe": {
+        "bindingVersion": 1,
+        "stable": 100,
+        "candidate": 0,
+        "failed": 0,
+        "nodes": {
+          "node-a": 50,
+          "node-b": 50
+        },
+        "endpoints": {
+          "checkout-node-a-stable": 50,
+          "checkout-node-b-stable": 50
+        }
+      }
+    },
+    {
+      "flow": "isolation",
+      "phase": "queued-and-admitted",
+      "details": [
+        {
+          "apiVersion": "wavegate.io/v1",
+          "namespace": "shop",
+          "limit": {
+            "releases": 1,
+            "candidateUnits": 2
+          },
+          "releases": 1,
+          "candidateUnits": 1,
+          "reservations": [
+            {
+              "apiVersion": "wavegate.io/v1",
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "releaseUid": "checkout-001",
+              "resourceVersion": 3,
+              "units": 1,
+              "acquiredAt": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        {
+          "apiVersion": "wavegate.io/v1",
+          "namespace": "sandbox",
+          "limit": {
+            "releases": 1,
+            "candidateUnits": 2
+          },
+          "releases": 1,
+          "candidateUnits": 1,
+          "reservations": [
+            {
+              "apiVersion": "wavegate.io/v1",
+              "service": {
+                "namespace": "sandbox",
+                "name": "search"
+              },
+              "releaseUid": "search-001",
+              "resourceVersion": 13,
+              "units": 1,
+              "acquiredAt": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "flow": "abort",
+      "phase": "candidate-errors",
+      "probe": {
+        "bindingVersion": 4,
+        "stable": 75,
+        "candidate": 25,
+        "failed": 25,
+        "nodes": {
+          "node-a": 38,
+          "node-b": 62
+        },
+        "endpoints": {
+          "search-node-a-stable": 38,
+          "search-node-b-canary": 25,
+          "search-node-b-stable": 37
+        }
+      }
+    },
+    {
+      "flow": "progress",
+      "phase": "manually-paused",
+      "probe": {
+        "bindingVersion": 2,
+        "stable": 90,
+        "candidate": 10,
+        "failed": 0,
+        "nodes": {
+          "node-a": 45,
+          "node-b": 55
+        },
+        "endpoints": {
+          "checkout-node-a-stable": 45,
+          "checkout-node-b-canary": 10,
+          "checkout-node-b-stable": 45
+        }
+      }
+    },
+    {
+      "flow": "progress",
+      "phase": "first-step",
+      "probe": {
+        "bindingVersion": 5,
+        "stable": 90,
+        "candidate": 10,
+        "failed": 0,
+        "nodes": {
+          "node-a": 45,
+          "node-b": 55
+        },
+        "endpoints": {
+          "checkout-node-a-stable": 45,
+          "checkout-node-b-canary": 10,
+          "checkout-node-b-stable": 45
+        }
+      }
+    },
+    {
+      "flow": "abort",
+      "phase": "metrics-rollback",
+      "probe": {
+        "bindingVersion": 6,
+        "stable": 100,
+        "candidate": 0,
+        "failed": 0,
+        "nodes": {
+          "node-a": 50,
+          "node-b": 50
+        },
+        "endpoints": {
+          "search-node-a-stable": 50,
+          "search-node-b-stable": 50
+        }
+      }
+    },
+    {
+      "flow": "resume",
+      "phase": "recovered-unacknowledged-apply",
+      "details": {
+        "operation": "4b169dba7fc91721419ff174aadbe5bbbf5e45187054ec42f1aab36306f6bb97",
+        "bindingVersion": 7
+      }
+    },
+    {
+      "flow": "progress",
+      "phase": "second-step",
+      "probe": {
+        "bindingVersion": 7,
+        "stable": 60,
+        "candidate": 40,
+        "failed": 0,
+        "nodes": {
+          "node-a": 30,
+          "node-b": 70
+        },
+        "endpoints": {
+          "checkout-node-a-stable": 30,
+          "checkout-node-b-canary": 40,
+          "checkout-node-b-stable": 30
+        }
+      }
+    },
+    {
+      "flow": "progress",
+      "phase": "promoted",
+      "probe": {
+        "bindingVersion": 8,
+        "stable": 100,
+        "candidate": 0,
+        "failed": 0,
+        "nodes": {
+          "node-b": 100
+        },
+        "endpoints": {
+          "checkout-node-b-canary": 100
+        }
+      },
+      "details": {
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "stable": "blue-v2",
+        "candidateWeight": 0,
+        "discoveryVersion": 12,
+        "stableTargets": [
+          {
+            "node": "node-b",
+            "name": "canary",
+            "uid": "checkout-node-b-canary"
+          }
+        ],
+        "candidateTargets": [],
+        "drainTargets": [
+          {
+            "node": "node-a",
+            "name": "stable",
+            "uid": "checkout-node-a-stable"
+          },
+          {
+            "node": "node-b",
+            "name": "stable",
+            "uid": "checkout-node-b-stable"
+          }
+        ],
+        "drainUntil": "2026-11-25T08:00:09Z"
+      }
+    },
+    {
+      "flow": "abort",
+      "phase": "manual-rollback",
+      "probe": {
+        "bindingVersion": 11,
+        "stable": 100,
+        "candidate": 0,
+        "failed": 0,
+        "nodes": {
+          "node-a": 50,
+          "node-b": 50
+        },
+        "endpoints": {
+          "catalog-node-a-stable": 50,
+          "catalog-node-b-stable": 50
+        }
+      },
+      "details": {
+        "apiVersion": "wavegate.io/v1",
+        "namespace": "shop",
+        "limit": {
+          "releases": 1,
+          "candidateUnits": 2
+        },
+        "releases": 0,
+        "candidateUnits": 0,
+        "reservations": []
+      }
+    }
+  ]
+}

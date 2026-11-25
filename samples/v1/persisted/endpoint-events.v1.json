@@ -1,0 +1,407 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "list": {
+    "apiVersion": "wavegate.io/v1",
+    "resourceVersion": 12,
+    "items": [
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "search-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:40305",
+        "ready": false,
+        "resourceVersion": 11
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "search-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:39777",
+        "ready": true,
+        "resourceVersion": 9
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "search-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:44553",
+        "ready": true,
+        "resourceVersion": 12
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "search-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:43639",
+        "ready": true,
+        "resourceVersion": 10
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "catalog-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:37695",
+        "ready": false,
+        "resourceVersion": 7
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "catalog-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:34295",
+        "ready": true,
+        "resourceVersion": 5
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "catalog-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:32999",
+        "ready": true,
+        "resourceVersion": 8
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "catalog-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:36169",
+        "ready": true,
+        "resourceVersion": 6
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "checkout-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:42889",
+        "ready": false,
+        "resourceVersion": 3
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "checkout-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:40925",
+        "ready": true,
+        "resourceVersion": 1
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "checkout-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:46501",
+        "ready": true,
+        "resourceVersion": 4
+      },
+      {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "checkout-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:43069",
+        "ready": true,
+        "resourceVersion": 2
+      }
+    ]
+  },
+  "events": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 1,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "checkout-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:40925",
+        "ready": true,
+        "resourceVersion": 1
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 2,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "checkout-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:43069",
+        "ready": true,
+        "resourceVersion": 2
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 3,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "checkout-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:42889",
+        "ready": false,
+        "resourceVersion": 3
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 4,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "checkout-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:46501",
+        "ready": true,
+        "resourceVersion": 4
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 5,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "catalog-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:34295",
+        "ready": true,
+        "resourceVersion": 5
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 6,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "catalog-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:36169",
+        "ready": true,
+        "resourceVersion": 6
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 7,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "catalog-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:37695",
+        "ready": false,
+        "resourceVersion": 7
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 8,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "shop",
+          "name": "catalog"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "catalog-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:32999",
+        "ready": true,
+        "resourceVersion": 8
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 9,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-a",
+        "name": "stable",
+        "uid": "search-node-a-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:39777",
+        "ready": true,
+        "resourceVersion": 9
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 10,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-b",
+        "name": "stable",
+        "uid": "search-node-b-stable",
+        "revision": "blue-v1",
+        "address": "http://127.0.0.1:43639",
+        "ready": true,
+        "resourceVersion": 10
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 11,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-a",
+        "name": "canary",
+        "uid": "search-node-a-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:40305",
+        "ready": false,
+        "resourceVersion": 11
+      }
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "type": "ADDED",
+      "resourceVersion": 12,
+      "object": {
+        "apiVersion": "wavegate.io/v1",
+        "service": {
+          "namespace": "sandbox",
+          "name": "search"
+        },
+        "node": "node-b",
+        "name": "canary",
+        "uid": "search-node-b-canary",
+        "revision": "blue-v2",
+        "address": "http://127.0.0.1:44553",
+        "ready": true,
+        "resourceVersion": 12
+      }
+    }
+  ]
+}

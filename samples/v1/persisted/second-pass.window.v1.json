@@ -1,0 +1,1341 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "samples": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-1",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-10",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-100",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-11",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-12",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-13",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-14",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-15",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-16",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-17",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-18",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-19",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-2",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-20",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-21",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-22",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-23",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-24",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-25",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-26",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-27",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-28",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-29",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-3",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-30",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-31",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-32",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-33",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-34",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-35",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-36",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-37",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-38",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-39",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-4",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-40",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-41",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-42",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-43",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-44",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-45",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-46",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-47",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-48",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-49",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-5",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-50",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-51",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-52",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-53",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-54",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-55",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-56",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-57",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-58",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-59",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-6",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-60",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-61",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-62",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-63",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-64",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-65",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-66",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-67",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-68",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-69",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-7",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-70",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-71",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-72",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-73",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-74",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-75",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-76",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-77",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-78",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-79",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-8",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-80",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-81",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-82",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-83",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-84",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-85",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-86",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-87",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-88",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-89",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-9",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-90",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-91",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-92",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-93",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-94",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-95",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-96",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-97",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-98",
+      "role": "candidate",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "service": {
+        "namespace": "shop",
+        "name": "checkout"
+      },
+      "bindingVersion": 7,
+      "id": "route-7bfd59b1b4ebdd42bd1c866f-99",
+      "role": "stable",
+      "at": "2026-11-25T08:00:05Z",
+      "latencyMs": 0,
+      "failed": false
+    }
+  ],
+  "sealed": {
+    "policy": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "verdict": {
+      "apiVersion": "wavegate.io/v1",
+      "key": {
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "bindingVersion": 7,
+        "start": "2026-11-25T08:00:05Z",
+        "end": "2026-11-25T08:00:07Z"
+      },
+      "sampleVersion": 400,
+      "sampleDigest": "f2592e29ee93d521c09a7cfa50dfd8675d10d206d74d95094bb8b149ad41d610",
+      "stable": {
+        "count": 60,
+        "failed": 0,
+        "totalLatencyMs": 0
+      },
+      "candidate": {
+        "count": 40,
+        "failed": 0,
+        "totalLatencyMs": 0
+      },
+      "result": "Pass",
+      "reason": "WithinPolicy"
+    },
+    "sealedAt": "2026-11-25T08:00:07Z"
+  }
+}

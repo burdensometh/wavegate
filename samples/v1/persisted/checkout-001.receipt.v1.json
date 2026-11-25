@@ -1,0 +1,2417 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "releaseUid": "checkout-001",
+  "service": {
+    "namespace": "shop",
+    "name": "checkout"
+  },
+  "checkpointSequence": 0,
+  "checkpointDigest": "78682e6bed11a10a97b4bf18f75dd8fbb8f45dfafd3f940a962c563eafdefd48",
+  "decisions": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 1,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReleaseObserved",
+      "reason": "DesiredStateRead",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 1,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 0,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "digest": "418172db3c2cfd188333986aadde303ef4b75a98e6a9d07b4ea91c3c7fab800e"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 2,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ConditionChanged",
+      "reason": "WatchSynchronized",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 2,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "418172db3c2cfd188333986aadde303ef4b75a98e6a9d07b4ea91c3c7fab800e",
+      "digest": "c2d3a67c66623771be566a59c917e5aca22d7ede5a869db3d0de4654e9df7a1a"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 3,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReservationGranted",
+      "reason": "NamespaceBudgetAvailable",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 3,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "c2d3a67c66623771be566a59c917e5aca22d7ede5a869db3d0de4654e9df7a1a",
+      "digest": "2e60dc543d0692c04516aa2299d2f3437e84ead19ab396b3999b4b1377dffa29"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 4,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficPrepared",
+      "reason": "InstallStableBinding",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 4,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "intent": {
+          "operation": "448dbe3d7f178062ec220953bbe0b248474cb61b947b4cfc5b93c919f4f9f2d1",
+          "expectedVersion": 0,
+          "kind": "Initialize",
+          "step": -1,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "2e60dc543d0692c04516aa2299d2f3437e84ead19ab396b3999b4b1377dffa29",
+      "digest": "31832428c97ba704ecdbd7a2f5a9bb2c763bb7c8e029ee689d749c9bdcc0edb6"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 5,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficCommitted",
+      "reason": "Initialize",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 5,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 1,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 1,
+          "operation": "448dbe3d7f178062ec220953bbe0b248474cb61b947b4cfc5b93c919f4f9f2d1",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "31832428c97ba704ecdbd7a2f5a9bb2c763bb7c8e029ee689d749c9bdcc0edb6",
+      "digest": "595469302d2b4e57c8977fd0cabc6f3392f2d2540f277c3dfc211c7f6d273b9f"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 6,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficPrepared",
+      "reason": "EndpointsReady",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 6,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 1,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 1,
+          "operation": "448dbe3d7f178062ec220953bbe0b248474cb61b947b4cfc5b93c919f4f9f2d1",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "expectedVersion": 1,
+          "kind": "WeightStep",
+          "step": 0,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "595469302d2b4e57c8977fd0cabc6f3392f2d2540f277c3dfc211c7f6d273b9f",
+      "digest": "6421e2e20852ee7a263277316079e83b34b3503824b05607c42b0e77d02401ee"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 7,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "TrafficCommitted",
+      "reason": "WeightStep",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 1,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 1,
+          "decisionSequence": 7,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 2,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 2,
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 2,
+          "start": "2026-11-25T08:00:00Z",
+          "end": "2026-11-25T08:00:02Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "6421e2e20852ee7a263277316079e83b34b3503824b05607c42b0e77d02401ee",
+      "digest": "f2dbc9b3b1581240d6954ea81255be26b7958afb11b3ccde7e109378993d3ae8"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 18,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "DesiredObserved",
+      "reason": "ResourceVersionChanged",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 4,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": true,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 4,
+          "decisionSequence": 18,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 2,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 2,
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 2,
+          "start": "2026-11-25T08:00:00Z",
+          "end": "2026-11-25T08:00:02Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "f5c6334267fdbae2c969276698e7928d5cdbff08197204f6094b7ef5e42ee8aa",
+      "digest": "adf2ee93dbee2af94c2f67dbf07a148fca56e6eb2b46c24df851096d45410e5a"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 19,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReleasePaused",
+      "reason": "ManuallyPaused",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 4,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": true,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 4,
+          "decisionSequence": 19,
+          "phase": "Paused",
+          "step": 0,
+          "bindingVersion": 2,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ManuallyPaused",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowInvalidated",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 2,
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "adf2ee93dbee2af94c2f67dbf07a148fca56e6eb2b46c24df851096d45410e5a",
+      "digest": "fefca8bd85b5729b597827f35fc587afa44e1cddaa1583f25a18e2ff35ca9bc5"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 20,
+      "at": "2026-11-25T08:00:03Z",
+      "kind": "DesiredObserved",
+      "reason": "ResourceVersionChanged",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 20,
+          "phase": "Paused",
+          "step": 0,
+          "bindingVersion": 2,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ManuallyPaused",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowInvalidated",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 2,
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "fefca8bd85b5729b597827f35fc587afa44e1cddaa1583f25a18e2ff35ca9bc5",
+      "digest": "a14215eecfc778680e715a6e1baeab771e75d3fbf109165b257519de55a91a8c"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 21,
+      "at": "2026-11-25T08:00:03Z",
+      "kind": "TrafficPrepared",
+      "reason": "NewObservationWindow",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 21,
+          "phase": "Paused",
+          "step": 0,
+          "bindingVersion": 2,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ManuallyPaused",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowInvalidated",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 2,
+          "operation": "f522d2bbe38fb607b8b2c10804c2aa8385627e872574177aeb4749de89a905d9",
+          "appliedAt": "2026-11-25T08:00:00Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "179e9bd443fbae57d762b52eb4beec1af2419f1f2740cd7184e1b3e434f6e11d",
+          "expectedVersion": 2,
+          "kind": "RefreshStep",
+          "step": 0,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "a14215eecfc778680e715a6e1baeab771e75d3fbf109165b257519de55a91a8c",
+      "digest": "8135dc63fddc0aee5eb496c2c456860ae70ca21f86903e40ebbadfab9d711f8c"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 22,
+      "at": "2026-11-25T08:00:03Z",
+      "kind": "TrafficCommitted",
+      "reason": "RefreshStep",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 22,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 5,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 5,
+          "operation": "179e9bd443fbae57d762b52eb4beec1af2419f1f2740cd7184e1b3e434f6e11d",
+          "appliedAt": "2026-11-25T08:00:03Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 5,
+          "start": "2026-11-25T08:00:03Z",
+          "end": "2026-11-25T08:00:05Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "8135dc63fddc0aee5eb496c2c456860ae70ca21f86903e40ebbadfab9d711f8c",
+      "digest": "805ef23b15689334f28acf9eae82d983393bd49a1250eceac94179393e7350b6"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 26,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "WindowEvaluated",
+      "reason": "WithinPolicy",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 26,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 5,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": true,
+              "reason": "WithinPolicy",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "bindingVersion": 5,
+              "start": "2026-11-25T08:00:03Z",
+              "end": "2026-11-25T08:00:05Z"
+            },
+            "sampleVersion": 300,
+            "sampleDigest": "3a37f4cb179e4eece01ba2669b797a62a9be279370de41fac7e4fc652b950c02",
+            "stable": {
+              "count": 90,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 10,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "result": "Pass",
+            "reason": "WithinPolicy"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 5,
+          "operation": "179e9bd443fbae57d762b52eb4beec1af2419f1f2740cd7184e1b3e434f6e11d",
+          "appliedAt": "2026-11-25T08:00:03Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 5,
+          "start": "2026-11-25T08:00:03Z",
+          "end": "2026-11-25T08:00:05Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "a66a906d51db14c6498e53b3ea144e9f6e8b2db24800823607fc3d5362d91cec",
+      "digest": "bd0b866e3b374475ee28d661894663d2f21ef74874f5f40a94c792601470672a"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 27,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "TrafficPrepared",
+      "reason": "WindowPassed",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 27,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 5,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": true,
+              "reason": "WithinPolicy",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "bindingVersion": 5,
+              "start": "2026-11-25T08:00:03Z",
+              "end": "2026-11-25T08:00:05Z"
+            },
+            "sampleVersion": 300,
+            "sampleDigest": "3a37f4cb179e4eece01ba2669b797a62a9be279370de41fac7e4fc652b950c02",
+            "stable": {
+              "count": 90,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 10,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "result": "Pass",
+            "reason": "WithinPolicy"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 5,
+          "operation": "179e9bd443fbae57d762b52eb4beec1af2419f1f2740cd7184e1b3e434f6e11d",
+          "appliedAt": "2026-11-25T08:00:03Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 10,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "4b169dba7fc91721419ff174aadbe5bbbf5e45187054ec42f1aab36306f6bb97",
+          "expectedVersion": 5,
+          "kind": "WeightStep",
+          "step": 1,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 40,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 5,
+          "start": "2026-11-25T08:00:03Z",
+          "end": "2026-11-25T08:00:05Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "bd0b866e3b374475ee28d661894663d2f21ef74874f5f40a94c792601470672a",
+      "digest": "0d930142e27cd91a56a4441a5abc38cbab39f12136d9d2ba5971760c96ff50ac"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 28,
+      "at": "2026-11-25T08:00:05Z",
+      "kind": "TrafficCommitted",
+      "reason": "WeightStep",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 28,
+          "phase": "Progressing",
+          "step": 1,
+          "bindingVersion": 7,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:05Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 7,
+          "operation": "4b169dba7fc91721419ff174aadbe5bbbf5e45187054ec42f1aab36306f6bb97",
+          "appliedAt": "2026-11-25T08:00:05Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 40,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 7,
+          "start": "2026-11-25T08:00:05Z",
+          "end": "2026-11-25T08:00:07Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "0d930142e27cd91a56a4441a5abc38cbab39f12136d9d2ba5971760c96ff50ac",
+      "digest": "9d0e6cca826d9a1e212001354683ad443ea36961b19825499d702f8218d6ba26"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 29,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "WindowEvaluated",
+      "reason": "WithinPolicy",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 29,
+          "phase": "Progressing",
+          "step": 1,
+          "bindingVersion": 7,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": true,
+              "reason": "WithinPolicy",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "bindingVersion": 7,
+              "start": "2026-11-25T08:00:05Z",
+              "end": "2026-11-25T08:00:07Z"
+            },
+            "sampleVersion": 400,
+            "sampleDigest": "f2592e29ee93d521c09a7cfa50dfd8675d10d206d74d95094bb8b149ad41d610",
+            "stable": {
+              "count": 60,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 40,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "result": "Pass",
+            "reason": "WithinPolicy"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 7,
+          "operation": "4b169dba7fc91721419ff174aadbe5bbbf5e45187054ec42f1aab36306f6bb97",
+          "appliedAt": "2026-11-25T08:00:05Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 40,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 7,
+          "start": "2026-11-25T08:00:05Z",
+          "end": "2026-11-25T08:00:07Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "9d0e6cca826d9a1e212001354683ad443ea36961b19825499d702f8218d6ba26",
+      "digest": "64496b3df62dddb6afa98a617168550545834893b315b202962453a3ac5df51e"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 30,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficPrepared",
+      "reason": "FinalWindowPassed",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 30,
+          "phase": "Progressing",
+          "step": 1,
+          "bindingVersion": 7,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:03Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": true,
+              "reason": "WithinPolicy",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "bindingVersion": 7,
+              "start": "2026-11-25T08:00:05Z",
+              "end": "2026-11-25T08:00:07Z"
+            },
+            "sampleVersion": 400,
+            "sampleDigest": "f2592e29ee93d521c09a7cfa50dfd8675d10d206d74d95094bb8b149ad41d610",
+            "stable": {
+              "count": 60,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 40,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "result": "Pass",
+            "reason": "WithinPolicy"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 7,
+          "operation": "4b169dba7fc91721419ff174aadbe5bbbf5e45187054ec42f1aab36306f6bb97",
+          "appliedAt": "2026-11-25T08:00:05Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 40,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "de30835c1080d8f6ae4373ed0fe53c32aa354cd3bf3055c2bf42a2b308127de8",
+          "expectedVersion": 7,
+          "kind": "Promote",
+          "step": 1,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "candidateTargets": [],
+            "drainTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "drainUntil": "2026-11-25T08:00:09Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "bindingVersion": 7,
+          "start": "2026-11-25T08:00:05Z",
+          "end": "2026-11-25T08:00:07Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "resourceVersion": 3,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:00Z"
+        }
+      },
+      "previousDigest": "64496b3df62dddb6afa98a617168550545834893b315b202962453a3ac5df51e",
+      "digest": "8a4fa430ec86d8ff0139d2bfbfb35083ff5e1385de7e1a5afb0ae431961b58b4"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 31,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficCommitted",
+      "reason": "Promote",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "name": "checkout-rollout",
+          "uid": "checkout-001",
+          "resourceVersion": 5,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            10,
+            40
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "checkout"
+          },
+          "releaseUid": "checkout-001",
+          "observedVersion": 5,
+          "decisionSequence": 31,
+          "phase": "Promoted",
+          "step": 1,
+          "bindingVersion": 8,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "CandidatePromoted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": false,
+              "reason": "ReservationReleased",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": true,
+              "reason": "WithinPolicy",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "Completed",
+              "status": true,
+              "reason": "CandidatePromoted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ],
+          "verdict": {
+            "apiVersion": "wavegate.io/v1",
+            "key": {
+              "service": {
+                "namespace": "shop",
+                "name": "checkout"
+              },
+              "bindingVersion": 7,
+              "start": "2026-11-25T08:00:05Z",
+              "end": "2026-11-25T08:00:07Z"
+            },
+            "sampleVersion": 400,
+            "sampleDigest": "f2592e29ee93d521c09a7cfa50dfd8675d10d206d74d95094bb8b149ad41d610",
+            "stable": {
+              "count": 60,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "candidate": {
+              "count": 40,
+              "failed": 0,
+              "totalLatencyMs": 0
+            },
+            "result": "Pass",
+            "reason": "WithinPolicy"
+          }
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "checkout-001",
+          "resourceVersion": 8,
+          "operation": "de30835c1080d8f6ae4373ed0fe53c32aa354cd3bf3055c2bf42a2b308127de8",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "checkout"
+            },
+            "stable": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "checkout-node-b-canary"
+              }
+            ],
+            "candidateTargets": [],
+            "drainTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "checkout-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "checkout-node-b-stable"
+              }
+            ],
+            "drainUntil": "2026-11-25T08:00:09Z"
+          }
+        }
+      },
+      "previousDigest": "8a4fa430ec86d8ff0139d2bfbfb35083ff5e1385de7e1a5afb0ae431961b58b4",
+      "digest": "cb46413f02650b30f3b1576c148df7e4abfd25b7608ea4d859ba5827cdfea765"
+    }
+  ],
+  "lastDecision": 31,
+  "generatedAt": "2026-11-25T08:00:07Z",
+  "digest": "98665232844bf3333a02dca428d53d64aca17a4c78ee33ee944ad48c49cd40ce"
+}

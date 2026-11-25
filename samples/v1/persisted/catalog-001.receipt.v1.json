@@ -1,0 +1,1208 @@
+{
+  "apiVersion": "wavegate.io/v1",
+  "releaseUid": "catalog-001",
+  "service": {
+    "namespace": "shop",
+    "name": "catalog"
+  },
+  "checkpointSequence": 0,
+  "checkpointDigest": "78682e6bed11a10a97b4bf18f75dd8fbb8f45dfafd3f940a962c563eafdefd48",
+  "decisions": [
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 8,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ReleaseObserved",
+      "reason": "DesiredStateRead",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 8,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 0,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "f2dbc9b3b1581240d6954ea81255be26b7958afb11b3ccde7e109378993d3ae8",
+      "digest": "ee84d6172ed439f2f00f7e420aaccdb0e65e2d8d6f719c9356dd81fd8c4d0b74"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 9,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ConditionChanged",
+      "reason": "WatchSynchronized",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 9,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "ee84d6172ed439f2f00f7e420aaccdb0e65e2d8d6f719c9356dd81fd8c4d0b74",
+      "digest": "274ddd394178cbef661f21616589a7cd68ffdc105c8c2346690ae5a9d6dd6d82"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 10,
+      "at": "2026-11-25T08:00:00Z",
+      "kind": "ConditionChanged",
+      "reason": "NamespaceBudget",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 10,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": false,
+              "reason": "NamespaceBudget",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            }
+          ]
+        }
+      },
+      "previousDigest": "274ddd394178cbef661f21616589a7cd68ffdc105c8c2346690ae5a9d6dd6d82",
+      "digest": "3ba6b54c85aa41130bfad902689ac47722af44ab6c18b787dd285fe43e24c2e0"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 32,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "ReservationGranted",
+      "reason": "NamespaceBudgetAvailable",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 32,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "cb46413f02650b30f3b1576c148df7e4abfd25b7608ea4d859ba5827cdfea765",
+      "digest": "725da42bdf700c471efd6946d35e81ac2eff9a3800851e591219dbbd286ef9ea"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 33,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficPrepared",
+      "reason": "InstallStableBinding",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 33,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 0,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "ReleaseObserved",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "intent": {
+          "operation": "efbb6c22bdca6c4ffdf1cb78d186c3a65665e3aab2cb75e34eb50b640bac00c3",
+          "expectedVersion": 0,
+          "kind": "Initialize",
+          "step": -1,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "725da42bdf700c471efd6946d35e81ac2eff9a3800851e591219dbbd286ef9ea",
+      "digest": "29de5129b2dc95e4c237ca06208af778b78101dc7257e83c9eb89e2ca4a33f1f"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 34,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficCommitted",
+      "reason": "Initialize",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 34,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 9,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 9,
+          "operation": "efbb6c22bdca6c4ffdf1cb78d186c3a65665e3aab2cb75e34eb50b640bac00c3",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "29de5129b2dc95e4c237ca06208af778b78101dc7257e83c9eb89e2ca4a33f1f",
+      "digest": "669665c1c4affb37f7a189112d35f32e9f8edccc268b6bca63983f02382b10ba"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 35,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficPrepared",
+      "reason": "EndpointsReady",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 35,
+          "phase": "Waiting",
+          "step": -1,
+          "bindingVersion": 9,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "StableBindingInstalled",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 9,
+          "operation": "efbb6c22bdca6c4ffdf1cb78d186c3a65665e3aab2cb75e34eb50b640bac00c3",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "c78c66cc4034c438583ba94451685b588ac57eee60369c73d954f932f646d48b",
+          "expectedVersion": 9,
+          "kind": "WeightStep",
+          "step": 0,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 20,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "669665c1c4affb37f7a189112d35f32e9f8edccc268b6bca63983f02382b10ba",
+      "digest": "81586a146ae936f3315c4b9b52140cbb2bfdd4078749788c08345af3b82e72b5"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 36,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficCommitted",
+      "reason": "WeightStep",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 2,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": false
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 2,
+          "decisionSequence": 36,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 10,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 10,
+          "operation": "c78c66cc4034c438583ba94451685b588ac57eee60369c73d954f932f646d48b",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 20,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "bindingVersion": 10,
+          "start": "2026-11-25T08:00:07Z",
+          "end": "2026-11-25T08:00:09Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "81586a146ae936f3315c4b9b52140cbb2bfdd4078749788c08345af3b82e72b5",
+      "digest": "fd692d123c365a3bcc2f6c5309920a239cac8ca4118313a3a69a6d55441dd8df"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 37,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "DesiredObserved",
+      "reason": "ResourceVersionChanged",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 6,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": true
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 6,
+          "decisionSequence": 37,
+          "phase": "Progressing",
+          "step": 0,
+          "bindingVersion": 10,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": true,
+              "reason": "CandidateServing",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 10,
+          "operation": "c78c66cc4034c438583ba94451685b588ac57eee60369c73d954f932f646d48b",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 20,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "window": {
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "bindingVersion": 10,
+          "start": "2026-11-25T08:00:07Z",
+          "end": "2026-11-25T08:00:09Z"
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "fd692d123c365a3bcc2f6c5309920a239cac8ca4118313a3a69a6d55441dd8df",
+      "digest": "f3ab84ef34881fad8e9c04dce3e5d1730edefb658cbdaecbce1542a81173dd07"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 38,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficPrepared",
+      "reason": "AbortRequested",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 6,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": true
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 6,
+          "decisionSequence": 38,
+          "phase": "RollingBack",
+          "step": 0,
+          "bindingVersion": 10,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "AbortRequested",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": true,
+              "reason": "ReservationGranted",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 10,
+          "operation": "c78c66cc4034c438583ba94451685b588ac57eee60369c73d954f932f646d48b",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidate": "blue-v2",
+            "candidateWeight": 20,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [
+              {
+                "node": "node-b",
+                "name": "canary",
+                "uid": "catalog-node-b-canary"
+              }
+            ],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "intent": {
+          "operation": "1bb2cabd736c7aee56bfc847238d5a8022d4e2f165e8dcaaf12d55983f9846ed",
+          "expectedVersion": 10,
+          "kind": "RollBack",
+          "step": -1,
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        },
+        "reservation": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "resourceVersion": 32,
+          "units": 1,
+          "acquiredAt": "2026-11-25T08:00:07Z"
+        }
+      },
+      "previousDigest": "f3ab84ef34881fad8e9c04dce3e5d1730edefb658cbdaecbce1542a81173dd07",
+      "digest": "54522ae7ff041642c4024abb2b5ff75c9a8540f45457044d017f314c041f3870"
+    },
+    {
+      "apiVersion": "wavegate.io/v1",
+      "sequence": 39,
+      "at": "2026-11-25T08:00:07Z",
+      "kind": "TrafficCommitted",
+      "reason": "RollBack",
+      "state": {
+        "spec": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "name": "catalog-rollout",
+          "uid": "catalog-001",
+          "resourceVersion": 6,
+          "stable": "blue-v1",
+          "candidate": "blue-v2",
+          "steps": [
+            20
+          ],
+          "window": {
+            "seconds": 2,
+            "minSamples": 4,
+            "maxErrorBps": 500,
+            "maxErrorDeltaBps": 500,
+            "maxMeanLatencyDeltaMs": 50
+          },
+          "minReady": 1,
+          "paused": false,
+          "abort": true
+        },
+        "status": {
+          "apiVersion": "wavegate.io/v1",
+          "service": {
+            "namespace": "shop",
+            "name": "catalog"
+          },
+          "releaseUid": "catalog-001",
+          "observedVersion": 6,
+          "decisionSequence": 39,
+          "phase": "Aborted",
+          "step": -1,
+          "bindingVersion": 11,
+          "discoveryVersion": 12,
+          "conditions": [
+            {
+              "type": "Progressing",
+              "status": false,
+              "reason": "AbortRequested",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "DiscoveryReady",
+              "status": true,
+              "reason": "WatchSynchronized",
+              "lastTransitionTime": "2026-11-25T08:00:00Z"
+            },
+            {
+              "type": "Admitted",
+              "status": false,
+              "reason": "ReservationReleased",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "WindowReady",
+              "status": false,
+              "reason": "WindowOpen",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            },
+            {
+              "type": "Completed",
+              "status": true,
+              "reason": "StableRestored",
+              "lastTransitionTime": "2026-11-25T08:00:07Z"
+            }
+          ]
+        },
+        "binding": {
+          "apiVersion": "wavegate.io/v1",
+          "ownerUid": "catalog-001",
+          "resourceVersion": 11,
+          "operation": "1bb2cabd736c7aee56bfc847238d5a8022d4e2f165e8dcaaf12d55983f9846ed",
+          "appliedAt": "2026-11-25T08:00:07Z",
+          "rule": {
+            "service": {
+              "namespace": "shop",
+              "name": "catalog"
+            },
+            "stable": "blue-v1",
+            "candidateWeight": 0,
+            "discoveryVersion": 12,
+            "stableTargets": [
+              {
+                "node": "node-a",
+                "name": "stable",
+                "uid": "catalog-node-a-stable"
+              },
+              {
+                "node": "node-b",
+                "name": "stable",
+                "uid": "catalog-node-b-stable"
+              }
+            ],
+            "candidateTargets": [],
+            "drainUntil": "0001-01-01T00:00:00Z"
+          }
+        }
+      },
+      "previousDigest": "54522ae7ff041642c4024abb2b5ff75c9a8540f45457044d017f314c041f3870",
+      "digest": "81d006cceca6812d5145eac1f312cb972e23c35cf8a1bb8548685de7fa40554f"
+    }
+  ],
+  "lastDecision": 39,
+  "generatedAt": "2026-11-25T08:00:07Z",
+  "digest": "c1f452860a7f76899d527bd43ad1a81b9bcca7280b0d165d5c39bd7ed6f9deb7"
+}

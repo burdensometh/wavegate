@@ -1,0 +1,100 @@
+{
+  "spec": {
+    "apiVersion": "wavegate.io/v1",
+    "service": {
+      "namespace": "shop",
+      "name": "checkout"
+    },
+    "name": "checkout-rollout",
+    "uid": "checkout-001",
+    "resourceVersion": 5,
+    "stable": "blue-v1",
+    "candidate": "blue-v2",
+    "steps": [
+      10,
+      40
+    ],
+    "window": {
+      "seconds": 2,
+      "minSamples": 4,
+      "maxErrorBps": 500,
+      "maxErrorDeltaBps": 500,
+      "maxMeanLatencyDeltaMs": 50
+    },
+    "minReady": 1,
+    "paused": false,
+    "abort": false
+  },
+  "status": {
+    "apiVersion": "wavegate.io/v1",
+    "service": {
+      "namespace": "shop",
+      "name": "checkout"
+    },
+    "releaseUid": "checkout-001",
+    "observedVersion": 5,
+    "decisionSequence": 31,
+    "phase": "Promoted",
+    "step": 1,
+    "bindingVersion": 8,
+    "discoveryVersion": 12,
+    "conditions": [
+      {
+        "type": "Progressing",
+        "status": false,
+        "reason": "CandidatePromoted",
+        "lastTransitionTime": "2026-11-25T08:00:07Z"
+      },
+      {
+        "type": "DiscoveryReady",
+        "status": true,
+        "reason": "WatchSynchronized",
+        "lastTransitionTime": "2026-11-25T08:00:00Z"
+      },
+      {
+        "type": "Admitted",
+        "status": false,
+        "reason": "ReservationReleased",
+        "lastTransitionTime": "2026-11-25T08:00:07Z"
+      },
+      {
+        "type": "WindowReady",
+        "status": true,
+        "reason": "WithinPolicy",
+        "lastTransitionTime": "2026-11-25T08:00:07Z"
+      },
+      {
+        "type": "Completed",
+        "status": true,
+        "reason": "CandidatePromoted",
+        "lastTransitionTime": "2026-11-25T08:00:07Z"
+      }
+    ],
+    "verdict": {
+      "apiVersion": "wavegate.io/v1",
+      "key": {
+        "service": {
+          "namespace": "shop",
+          "name": "checkout"
+        },
+        "bindingVersion": 7,
+        "start": "2026-11-25T08:00:05Z",
+        "end": "2026-11-25T08:00:07Z"
+      },
+      "sampleVersion": 400,
+      "sampleDigest": "f2592e29ee93d521c09a7cfa50dfd8675d10d206d74d95094bb8b149ad41d610",
+      "stable": {
+        "count": 60,
+        "failed": 0,
+        "totalLatencyMs": 0
+      },
+      "candidate": {
+        "count": 40,
+        "failed": 0,
+        "totalLatencyMs": 0
+      },
+      "result": "Pass",
+      "reason": "WithinPolicy"
+    }
+  }
+}
