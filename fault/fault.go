@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"sync"
+	"time"
 
 	"wavegate/discovery"
 	"wavegate/traffic"
@@ -12,6 +13,59 @@ import (
 )
 
 var ErrLostReceipt = errors.New("apply receipt dropped after commit")
+
+// WindowStore is the verdict source a Windows wrapper can poll for seals.
+type WindowStore interface {
+	Verdict(v1.WindowKey, v1.WindowPolicy, time.Time) (v1.WindowVerdict, error)
+	Inventory() (version uint64, sealed int, err error)
+}
+
+// Windows traps the first Verdict call that durably seals a window. The trap
+// runs after the seal commits but before the caller can persist the decision
+// that consumes the verdict, which is the crash boundary under test.
+type Windows struct {
+	store WindowStore
+	mu    sync.Mutex
+	trap  func(v1.WindowVerdict)
+}
+
+func NewWindows(store WindowStore) *Windows { return &Windows{store: store} }
+
+// TrapAfterNextSeal installs a one-shot hook for the next freshly sealed window.
+func (w *Windows) TrapAfterNextSeal(trap func(v1.WindowVerdict)) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	w.trap = trap
+}
+
+func (w *Windows) Verdict(key v1.WindowKey, policy v1.WindowPolicy, now time.Time) (v1.WindowVerdict, error) {
+	w.mu.Lock()
+	armed := w.trap != nil
+	w.mu.Unlock()
+	if !armed {
+		return w.store.Verdict(key, policy, now)
+	}
+	_, before, err := w.store.Inventory()
+	if err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	verdict, err := w.store.Verdict(key, policy, now)
+	if err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	_, after, err := w.store.Inventory()
+	if err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	if after > before {
+		w.mu.Lock()
+		trap := w.trap
+		w.trap = nil
+		w.mu.Unlock()
+		trap(verdict)
+	}
+	return verdict, nil
+}
 
 // Plane drops an armed receipt after the enclosed atomic mutation succeeds.
 type Plane struct {

@@ -82,4 +82,4 @@ go test -race -count=1 ./...
 go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics
 ```
 
-故障边界由 `clock.Manual`、`fault.Source` 和 `fault.Plane` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、观察窗回放和 apply 回执丢失后的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。
+故障边界由 `clock.Manual`、`fault.Source`、`fault.Plane` 和 `fault.Windows` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、观察窗回放、apply 回执丢失以及窗口封存后决策尚未写入的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。

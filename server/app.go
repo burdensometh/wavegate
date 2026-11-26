@@ -41,10 +41,11 @@ type App struct {
 }
 
 type Options struct {
-	Clock      clock.Clock
-	WrapPlane  func(traffic.Plane) traffic.Plane
-	WrapSource func(discovery.Source) discovery.Source
-	Report     func(error)
+	Clock       clock.Clock
+	WrapPlane   func(traffic.Plane) traffic.Plane
+	WrapSource  func(discovery.Source) discovery.Source
+	WrapWindows func(*metrics.Store) rollout.Windows
+	Report      func(error)
 }
 
 func Open(cfg config.Config, options Options) (_ *App, resultErr error) {
@@ -95,8 +96,12 @@ func Open(cfg config.Config, options Options) (_ *App, resultErr error) {
 	if options.WrapPlane != nil {
 		plane = options.WrapPlane(plane)
 	}
+	windows := rollout.Windows(app.Metrics)
+	if options.WrapWindows != nil {
+		windows = options.WrapWindows(app.Metrics)
+	}
 	app.Engine, err = rollout.New(rollout.Dependencies{
-		Specs: app.Specs, Index: app.Index, Fence: app.Catalog, Plane: plane, Windows: app.Metrics, Journal: app.Journal,
+		Specs: app.Specs, Index: app.Index, Fence: app.Catalog, Plane: plane, Windows: windows, Journal: app.Journal,
 		Clock: at, DefaultQuota: cfg.DefaultQuota, Quotas: cfg.Quotas, Drain: cfg.Drain(),
 		DrainInUse: app.Drain.InUse,
 	})
