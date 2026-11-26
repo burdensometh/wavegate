@@ -8,6 +8,10 @@ import (
 
 // WithReadyRule pins the authoritative inventory during a traffic mutation.
 // Stable-only emergency rollback can publish even when its targets are stale.
+//
+// Stable and candidate target groups each carry their own revision, so a single
+// domain's replica rebuild still admits the untouched domain's targets while it
+// fences the rebuilt one.
 func (c *Catalog) WithReadyRule(rule v1.Rule, mutate func() error) error {
 	c.mu.RLock()
 	defer c.mu.RUnlock()

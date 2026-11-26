@@ -108,7 +108,7 @@ func validatePhase(state v1.ReleaseState) error {
 	spec, status := state.Spec, state.Status
 	switch status.Phase {
 	case v1.Waiting:
-		if status.Step != -1 || (state.Binding != nil && (state.Binding.Rule.Stable != spec.Stable || state.Binding.Rule.CandidateWeight != 0)) {
+		if status.Step != -1 || (state.Binding != nil && (state.Binding.Rule.Stable != spec.Stable || state.Binding.Rule.HasCandidateTraffic())) {
 			return v1.Invalid("waiting release must use stable-only traffic")
 		}
 	case v1.Progressing, v1.Paused, v1.RollingBack:
@@ -116,22 +116,22 @@ func validatePhase(state v1.ReleaseState) error {
 			return v1.Invalid("active release requires its original stable binding and reservation")
 		}
 		if status.Step >= 0 && (state.Binding.Rule.Candidate != spec.Candidate ||
-			state.Binding.Rule.CandidateWeight != spec.Steps[status.Step]) {
+			state.Binding.Rule.StepWeight() != spec.Steps[status.Step]) {
 			return v1.Invalid("active binding does not match the fixed step")
 		}
-		if status.Step < 0 && state.Binding.Rule.CandidateWeight != 0 {
+		if status.Step < 0 && state.Binding.Rule.HasCandidateTraffic() {
 			return v1.Invalid("weighted binding has no matching step")
 		}
 		if status.Phase == v1.Progressing && status.Step < 0 {
 			return v1.Invalid("progressing release has no active step")
 		}
 	case v1.Aborted:
-		if status.Step != -1 || (state.Binding != nil && (state.Binding.Rule.Stable != spec.Stable || state.Binding.Rule.CandidateWeight != 0)) {
+		if status.Step != -1 || (state.Binding != nil && (state.Binding.Rule.Stable != spec.Stable || state.Binding.Rule.HasCandidateTraffic())) {
 			return v1.Invalid("aborted release still serves the candidate")
 		}
 	case v1.Promoted:
 		if status.Step != len(spec.Steps)-1 || state.Binding == nil || state.Binding.Rule.Stable != spec.Candidate ||
-			state.Binding.Rule.CandidateWeight != 0 || status.Verdict == nil || status.Verdict.Result != v1.Pass {
+			state.Binding.Rule.HasCandidateTraffic() || status.Verdict == nil || status.Verdict.Result != v1.Pass {
 			return v1.Invalid("promoted release lacks a final successful gate and stable-only binding")
 		}
 	}
@@ -152,7 +152,7 @@ func validateIntent(state v1.ReleaseState) error {
 	}
 	switch intent.Kind {
 	case v1.Initialize:
-		if intent.Rule.Stable == spec.Stable && intent.Rule.Candidate == spec.Candidate && intent.Rule.CandidateWeight == 0 &&
+		if intent.Rule.Stable == spec.Stable && intent.Rule.Candidate == spec.Candidate && !intent.Rule.HasCandidateTraffic() &&
 			intent.Step == -1 && (status.Phase == v1.Waiting || status.Phase == v1.Paused) {
 			return nil
 		}
@@ -163,13 +163,13 @@ func validateIntent(state v1.ReleaseState) error {
 	case v1.Promote:
 		if intent.Rule.Stable == spec.Candidate && intent.Rule.Candidate == "" && intent.Step == status.Step &&
 			status.Step == len(spec.Steps)-1 && status.Verdict != nil && status.Verdict.Result == v1.Pass &&
-			len(intent.Rule.StableTargets) >= spec.MinReady {
+			promotionTargetsReady(state, intent) {
 			return nil
 		}
 	case v1.WeightStep, v1.RefreshStep:
 		if intent.Step >= 0 && intent.Step < len(spec.Steps) && intent.Rule.Stable == spec.Stable &&
-			intent.Rule.Candidate == spec.Candidate && intent.Rule.CandidateWeight == spec.Steps[intent.Step] &&
-			len(intent.Rule.CandidateTargets) >= spec.MinReady && !v1.Terminal(status.Phase) {
+			intent.Rule.Candidate == spec.Candidate && intent.Rule.StepWeight() == spec.Steps[intent.Step] &&
+			domainCandidateReady(state, intent) && !v1.Terminal(status.Phase) {
 			switch intent.Kind {
 			case v1.RefreshStep:
 				if intent.Step == status.Step {
@@ -183,11 +183,28 @@ func validateIntent(state v1.ReleaseState) error {
 		}
 	case v1.SyncStable:
 		if state.Binding != nil && v1.Terminal(status.Phase) && intent.Rule.Stable == state.Binding.Rule.Stable &&
-			intent.Rule.CandidateWeight == 0 && intent.Step == status.Step {
+			!intent.Rule.HasCandidateTraffic() && intent.Step == status.Step {
 			return nil
 		}
 	}
 	return v1.Invalid("decision intent is inconsistent with phase or step")
+}
+
+func domainCandidateReady(state v1.ReleaseState, intent *v1.Intent) bool {
+	if len(state.Spec.Domains) == 0 {
+		return len(intent.Rule.CandidateTargets) >= state.Spec.MinReady
+	}
+	return intent.Rule.DomainReady(state.Spec.MinReady)
+}
+
+// promotionTargetsReady accepts a promotion that carries at least minReady
+// stable (soon promoted) targets, either in aggregate for a legacy release or
+// in every declared domain for a domain-scoped one.
+func promotionTargetsReady(state v1.ReleaseState, intent *v1.Intent) bool {
+	if len(state.Spec.Domains) == 0 {
+		return len(intent.Rule.StableTargets) >= state.Spec.MinReady
+	}
+	return len(intent.Rule.StableTargets) > 0 && traffic.StableCoversDomains(state.Spec.Domains, intent.Rule.StableTargets)
 }
 
 func validateTransition(previous, current v1.DecisionRecord) error {

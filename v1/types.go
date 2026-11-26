@@ -22,11 +22,41 @@ type ReleaseSpec struct {
 	Steps           []int        `json:"steps"`
 	Window          WindowPolicy `json:"window"`
 	MinReady        int          `json:"minReady"`
+	Domains         []DomainSpec `json:"domains,omitempty"`
 	Paused          bool         `json:"paused"`
 	Abort           bool         `json:"abort"`
 }
 
 func (r ReleaseSpec) Key() string { return r.Service.Namespace + "/" + r.Name }
+
+// DomainRoute records the candidate weight a single node domain serves for the
+// current step. A domain with no ready candidate targets records a zero weight
+// and keeps serving its own stable revision.
+type DomainRoute struct {
+	Name            string `json:"name"`
+	CandidateWeight int    `json:"candidateWeight"`
+}
+
+// DomainSpec groups nodes that serve one node domain. A service release may
+// list several domains so that each domain rolls out from its own ready
+// candidates while requests stay inside their domain.
+type DomainSpec struct {
+	Name  string   `json:"name"`
+	Nodes []string `json:"nodes"`
+}
+
+// DomainForNode returns the node domain that owns a node, or an empty string
+// when the release is not domain scoped or the node is outside every domain.
+func (r ReleaseSpec) DomainForNode(node string) string {
+	for _, domain := range r.Domains {
+		for _, member := range domain.Nodes {
+			if member == node {
+				return domain.Name
+			}
+		}
+	}
+	return ""
+}
 
 type WindowPolicy struct {
 	Seconds               int   `json:"seconds"`
@@ -70,23 +100,25 @@ const (
 )
 
 type Target struct {
-	Node string `json:"node"`
-	Name string `json:"name"`
-	UID  string `json:"uid"`
+	Node   string `json:"node"`
+	Name   string `json:"name"`
+	UID    string `json:"uid"`
+	Domain string `json:"domain,omitempty"`
 }
 
 func (t Target) Key() string { return t.Node + "/" + t.Name }
 
 type Rule struct {
-	Service          Service   `json:"service"`
-	Stable           string    `json:"stable"`
-	Candidate        string    `json:"candidate,omitempty"`
-	CandidateWeight  int       `json:"candidateWeight"`
-	DiscoveryVersion uint64    `json:"discoveryVersion"`
-	StableTargets    []Target  `json:"stableTargets"`
-	CandidateTargets []Target  `json:"candidateTargets"`
-	DrainTargets     []Target  `json:"drainTargets,omitempty"`
-	DrainUntil       time.Time `json:"drainUntil,omitempty"`
+	Service          Service       `json:"service"`
+	Stable           string        `json:"stable"`
+	Candidate        string        `json:"candidate,omitempty"`
+	CandidateWeight  int           `json:"candidateWeight"`
+	DiscoveryVersion uint64        `json:"discoveryVersion"`
+	StableTargets    []Target      `json:"stableTargets"`
+	CandidateTargets []Target      `json:"candidateTargets"`
+	DomainRoutes     []DomainRoute `json:"domainRoutes,omitempty"`
+	DrainTargets     []Target      `json:"drainTargets,omitempty"`
+	DrainUntil       time.Time     `json:"drainUntil,omitempty"`
 }
 
 type TrafficBinding struct {

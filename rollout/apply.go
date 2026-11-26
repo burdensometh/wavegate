@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
 	"time"
 
 	"wavegate/discovery"
@@ -148,10 +149,21 @@ func (e *Engine) rollback(now time.Time, state v1.ReleaseState, live v1.TrafficB
 		rule = v1.Rule{
 			Service: state.Spec.Service, Stable: state.Spec.Stable, DiscoveryVersion: live.Rule.DiscoveryVersion,
 			StableTargets: live.Rule.StableTargets, CandidateTargets: []v1.Target{},
+			DomainRoutes: zeroDomainRoutes(live.Rule.DomainRoutes),
 		}
 	}
 	e.keepDrain(now, live.Rule, &rule)
 	return e.prepare(now, state, live, v1.RollBack, -1, rule, reason)
+}
+
+// zeroDomainRoutes keeps the rule's domain routes but pins every domain to its
+// stable revision, so a stale rollback still stays inside the declared domains.
+func zeroDomainRoutes(routes []v1.DomainRoute) []v1.DomainRoute {
+	zeroed := slices.Clone(routes)
+	for index := range zeroed {
+		zeroed[index].CandidateWeight = 0
+	}
+	return zeroed
 }
 
 func (e *Engine) terminal(now time.Time, state v1.ReleaseState, live v1.TrafficBinding, snapshot discovery.Snapshot) error {

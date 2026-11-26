@@ -39,6 +39,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 - `discovery` 使用全局单调的端点资源版本。watch 过期或序列断裂会触发重新 list，原子替换视图。端点 readiness、节点、修订版和 UID 都参与切流或派发；已退役 UID 也保留在身份账中。
 - `rollout` 推进固定阶梯。规范创建后保持发布身份、修订版、阶梯和阈值，更新请求携带上一次返回的资源版本并可调整 `paused` 或置位 `abort`。一条发布可在初始稳定绑定建立后保持等待；双组可用才应用正权重。暂停、watch 中断或绑定重配会重新建立进阶所依赖的观察窗。
 - `traffic` 以操作 ID、绑定资源版本及所有者执行原子比较并交换。候选权重确定角色，角色内轮询当前规则中的就绪端点。已选角色无可用端点时返回 503。晋级后新请求走新稳定版，旧稳定端点保留到最短排空时间和在途请求均结束。
+- 节点域：`ReleaseSpec.domains` 把节点划入若干命名域。请求用 `?domain=` 或 `X-Wavegate-Domain` 声明所属域；声明后只匹配该域内的 UID 目标，未声明、跨域或不存在的域不会命中别的域。每个域按自己的就绪候选提供当前阶流量：该域有稳定目标和至少 `minReady` 个就绪候选才承载本阶权重，无候选的域仍走该域稳定版（`DomainRoutes` 中该域权重为 0）。单域重建副本后，规则以新 UID 和新一代 `discoveryVersion` 整体重写，另一域的权重保持不变（`RefreshStep`）。所有域都就绪后才晋级。未声明 `domains` 的旧配置保持整服务放量，完全复现原有行为。
 - `metrics` 使用绑定版本隔离样本。每阶比较同一半开区间 `[start,end)` 的两组错误率和均值延迟。窗口到期后，两组达到样本下限才会封存判定。封存写入样本水位和摘要，可重新计算。代理直接记录上游结果，也接收显式 v1 样本。
 - `journal` 先写入 traffic intent，再执行原子 apply，最后串接提交决策、发布 status 并更新配额视图。重启依据应用端实际操作 ID 对账。决策哈希和检查点用于一致性校验，收据包含保留决策与检查点上最近的该发布记录。
 - `quota` 从日志恢复已授予预留。每个服务同一时间只允许一个活跃预留；命名空间同时限制发布数和候选就绪单位。晋级或回退完成时在同一个决策中清除预留。
@@ -46,8 +47,8 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 | 持久文件 | 权威内容 |
 | --- | --- |
 | `endpoints.v1.json` | 端点库存、UID 账、watch 游标和有界历史 |
-| `releases.v1.json` | ReleaseSpec、资源版本和最近一次已发布的 status |
-| `traffic.v1.json` | 每个服务当前 TrafficBinding、操作 ID 和分配水位 |
+| `releases.v1.json` | ReleaseSpec（含节点域定义）、资源版本和最近一次已发布的 status |
+| `traffic.v1.json` | 每个服务当前 TrafficBinding、操作 ID、域路由和分配水位 |
 | `samples.v1.json` | 已摄入样本、样本水位、封存窗口 |
 | `decisions.v1.json` | 决策链、检查点、可重放发布和预留 |
 
@@ -72,7 +73,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 | `POST /v1/samples`、`GET /v1/samples/ns/svc/R` | 当前绑定的样本摄入与封存证据 |
 | `GET /v1/decisions?after=S&limit=N` | 决策分页及压缩水位 |
 | `GET /v1/decisions/watch?after=S` | NDJSON 决策流，掉出保留段时发出 RESET 水位 |
-| `/route/ns/svc/path` | 实际代理。响应头包含 binding、role、revision、endpoint |
+| `/route/ns/svc/path` | 实际代理。响应头包含 binding、role、revision、endpoint；声明域时还包含 domain |
 
 ## 原生验证
 

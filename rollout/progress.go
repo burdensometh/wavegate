@@ -28,7 +28,7 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 			}
 		}
 		e.generations[spec.UID] = snapshot.Generation
-		if !snapshot.Synced || state.Binding != nil && state.Binding.Rule.CandidateWeight > 0 {
+		if !snapshot.Synced || state.Binding != nil && traffic.HasCandidateTraffic(state.Binding.Rule) {
 			return nil
 		}
 	}
@@ -39,12 +39,16 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 	if setCondition(&state.Status, now, "DiscoveryReady", true, "WatchSynchronized") {
 		return e.commit(now, state, "ConditionChanged", "WatchSynchronized", state.Reservation)
 	}
-	rule := traffic.Render(spec, snapshot, spec.Stable, spec.Candidate, 0)
+	stepWeight := 0
+	if state.Status.Step >= 0 {
+		stepWeight = spec.Steps[state.Status.Step]
+	}
+	rule := traffic.Render(spec, snapshot, spec.Stable, spec.Candidate, stepWeight)
 	if state.Binding == nil {
 		return e.admit(now, state, live, rule)
 	}
-	ready := len(rule.StableTargets) > 0 && len(rule.CandidateTargets) >= spec.MinReady
-	if !ready && live.Rule.CandidateWeight > 0 {
+	ready := traffic.Ready(spec, rule)
+	if !ready && traffic.HasCandidateTraffic(live.Rule) {
 		return e.rollback(now, state, live, snapshot, "EndpointsBelowMinimum")
 	}
 	if spec.Paused {
@@ -68,12 +72,14 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 		}
 		return e.condition(now, state, "Progressing", false, reason)
 	}
-	if live.Rule.CandidateWeight == 0 {
-		rule.CandidateWeight = spec.Steps[0]
+	if !traffic.HasCandidateTraffic(live.Rule) {
+		rule = traffic.Render(spec, snapshot, spec.Stable, spec.Candidate, spec.Steps[0])
 		e.keepDrain(now, live.Rule, &rule)
 		return e.prepare(now, state, live, v1.WeightStep, 0, rule, "EndpointsReady")
 	}
-	rule.CandidateWeight = live.Rule.CandidateWeight
+	// The rule is already rendered at the active step. A domain that still has
+	// its own ready candidates keeps the step weight; a domain that has lost
+	// them renders to zero and keeps serving its stable revision.
 	e.keepDrain(now, live.Rule, &rule)
 	if state.Window == nil || !traffic.SameRoutes(live.Rule, rule) {
 		return e.prepare(now, state, live, v1.RefreshStep, state.Status.Step, rule, "NewObservationWindow")
@@ -83,8 +89,19 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 	}
 	nextStep := state.Status.Step + 1
 	if nextStep < len(spec.Steps) {
-		rule.CandidateWeight = spec.Steps[nextStep]
+		rule = traffic.Render(spec, snapshot, spec.Stable, spec.Candidate, spec.Steps[nextStep])
+		e.keepDrain(now, live.Rule, &rule)
 		return e.prepare(now, state, live, v1.WeightStep, nextStep, rule, "WindowPassed")
+	}
+	if !traffic.AllDomainsReady(spec, rule) {
+		// Hold promotion until every domain carries its own ready candidates.
+		// Promoting early would switch the whole service to the candidate
+		// revision and leave a not-yet-ready domain without endpoints.
+		e.keepDrain(now, live.Rule, &rule)
+		if !traffic.SameRoutes(live.Rule, rule) {
+			return e.prepare(now, state, live, v1.RefreshStep, state.Status.Step, rule, "NewObservationWindow")
+		}
+		return e.condition(now, state, "Progressing", false, "DomainsBelowMinimum")
 	}
 	rule = traffic.Render(spec, snapshot, spec.Candidate, "", 0)
 	if e.drain > 0 {
@@ -100,7 +117,7 @@ func (e *Engine) admit(now time.Time, state v1.ReleaseState, live v1.TrafficBind
 		if reason != "" {
 			return e.condition(now, state, "Admitted", false, reason)
 		}
-		if live.ResourceVersion > 0 && (live.Rule.Stable != state.Spec.Stable || live.Rule.CandidateWeight != 0) {
+		if live.ResourceVersion > 0 && (live.Rule.Stable != state.Spec.Stable || traffic.HasCandidateTraffic(live.Rule)) {
 			return e.condition(now, state, "Admitted", false, "StableBindingMismatch")
 		}
 		state.Reservation = &reservation

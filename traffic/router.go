@@ -18,6 +18,11 @@ type SampleWriter interface {
 	Add(v1.Sample) (bool, error)
 }
 
+type counterKey struct {
+	service v1.Service
+	domain  string
+}
+
 type counter struct {
 	version   uint64
 	request   uint64
@@ -36,20 +41,24 @@ type Router struct {
 	report    func(error)
 	mu        sync.Mutex
 	requestID atomic.Uint64
-	counters  map[v1.Service]counter
+	counters  map[counterKey]counter
 }
 
 func NewRouter(plane RoutePlane, resolver Resolver, tracker *DrainTracker, samples SampleWriter, clk clock.Clock, transport http.RoundTripper, instance string, report func(error)) *Router {
 	return &Router{
 		plane: plane, resolver: resolver, tracker: tracker, samples: samples, clock: clk, transport: transport, instance: instance,
-		report: report, counters: make(map[v1.Service]counter),
+		report: report, counters: make(map[counterKey]counter),
 	}
 }
 
-func (r *Router) selectRole(binding v1.TrafficBinding) (role string, index uint64) {
+// selectRole walks the candidate-weight buckets for the request's own domain.
+// Counters are per domain so each domain independently delivers the step's
+// proportion over its own traffic.
+func (r *Router) selectRole(binding v1.TrafficBinding, domain string, weight int) (role string, index uint64) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	c := r.counters[binding.Rule.Service]
+	key := counterKey{service: binding.Rule.Service, domain: domain}
+	c := r.counters[key]
 	isOld := c.version > binding.ResourceVersion
 	if c.version != binding.ResourceVersion {
 		c = counter{version: binding.ResourceVersion}
@@ -57,8 +66,8 @@ func (r *Router) selectRole(binding v1.TrafficBinding) (role string, index uint6
 			c.request = r.requestID.Load()
 		}
 	}
-	nextBucket := (c.request%100 + 1) * uint64(binding.Rule.CandidateWeight) / 100
-	baseBucket := (c.request % 100) * uint64(binding.Rule.CandidateWeight) / 100
+	nextBucket := (c.request%100 + 1) * uint64(weight) / 100
+	baseBucket := (c.request % 100) * uint64(weight) / 100
 	c.request++
 	if nextBucket > baseBucket {
 		role, index = v1.CandidateRole, c.candidate
@@ -68,13 +77,34 @@ func (r *Router) selectRole(binding v1.TrafficBinding) (role string, index uint6
 		c.stable++
 	}
 	if !isOld {
-		r.counters[binding.Rule.Service] = c
+		r.counters[key] = c
 	}
 	return
 }
 
+// requestDomain identifies which node domain a request belongs to. Requests
+// pin their domain through the domain query parameter or header.
+func requestDomain(req *http.Request) (string, error) {
+	domain := req.URL.Query().Get("domain")
+	if domain == "" {
+		domain = req.Header.Get("X-Wavegate-Domain")
+	}
+	if domain == "" {
+		return "", nil
+	}
+	if !v1.ValidLabel(domain) {
+		return "", v1.Invalid("request domain must be a DNS label")
+	}
+	return domain, nil
+}
+
 func (r *Router) ServeService(w http.ResponseWriter, req *http.Request, service v1.Service) {
-	request, err := r.admit(service)
+	domain, err := requestDomain(req)
+	if err != nil {
+		http.Error(w, "request domain must be a DNS label", http.StatusBadRequest)
+		return
+	}
+	request, err := r.admit(service, domain)
 	if err != nil {
 		routeUnavailable(w, err)
 		return
@@ -85,11 +115,15 @@ func (r *Router) ServeService(w http.ResponseWriter, req *http.Request, service 
 	binding, role, revision := request.binding, request.role, request.revision
 	requestID := r.requestID.Add(1)
 	w.Header().Set("X-Wavegate-Binding", strconv.FormatUint(binding.ResourceVersion, 10))
+	if request.domain != "" {
+		w.Header().Set("X-Wavegate-Domain", request.domain)
+	}
 	w.Header().Set("X-Wavegate-Role", role)
 	w.Header().Set("X-Wavegate-Revision", revision)
 	at := r.clock.Now()
+	weighted := HasCandidateTraffic(binding.Rule)
 	record := func(failed bool) {
-		if r.samples == nil || binding.Rule.CandidateWeight == 0 {
+		if r.samples == nil || !weighted {
 			return
 		}
 		latency := r.clock.Now().Sub(at).Milliseconds()
@@ -121,13 +155,14 @@ func (r *Router) ServeService(w http.ResponseWriter, req *http.Request, service 
 		Rewrite: func(upstream *httputil.ProxyRequest) {
 			upstream.SetURL(address)
 			upstream.Out.Header.Del("X-Wavegate-Binding")
+			upstream.Out.Header.Del("X-Wavegate-Domain")
 			upstream.Out.Header.Del("X-Wavegate-Role")
 			upstream.Out.Header.Del("X-Wavegate-Revision")
 			upstream.Out.Header.Del("X-Wavegate-Endpoint")
 		},
 		ModifyResponse: func(response *http.Response) error {
 			record(response.StatusCode >= 500)
-			for _, name := range []string{"X-Wavegate-Binding", "X-Wavegate-Role", "X-Wavegate-Revision", "X-Wavegate-Endpoint"} {
+			for _, name := range []string{"X-Wavegate-Binding", "X-Wavegate-Domain", "X-Wavegate-Role", "X-Wavegate-Revision", "X-Wavegate-Endpoint"} {
 				response.Header.Del(name)
 			}
 			return nil
