@@ -12,7 +12,7 @@ go build -trimpath -o bin/wavegate ./cmd/wavegate
 bin/wavegate serve -config config/wavegate.v1.json
 ```
 
-配置文件给出监听地址、持久目录、默认与逐命名空间配额、watch 历史、决策保留量、调谐周期、上游超时和排空时间。API 与端点地址均限本机 loopback。一个进程持有一个状态目录的独占租约。使用相同状态目录重启时会先核对五份 v1 文档的提交边界，再恢复配额和调谐。
+配置文件给出监听地址、持久目录、默认与逐命名空间配额、可选的跨命名空间共享候选额度、watch 历史、决策保留量、调谐周期、上游超时和排空时间。API 与端点地址均限本机 loopback。一个进程持有一个状态目录的独占租约。使用相同状态目录重启时会先核对五份 v1 文档的提交边界，再恢复配额和调谐。
 
 ## 可重复演示
 
@@ -41,7 +41,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 - `traffic` 以操作 ID、绑定资源版本及所有者执行原子比较并交换。候选权重确定角色，角色内轮询当前规则中的就绪端点。已选角色无可用端点时返回 503。晋级后新请求走新稳定版，旧稳定端点保留到最短排空时间和在途请求均结束。
 - `metrics` 使用绑定版本隔离样本。每阶比较同一半开区间 `[start,end)` 的两组错误率和均值延迟。窗口到期后，两组达到样本下限才会封存判定。封存写入样本水位和摘要，可重新计算。代理直接记录上游结果，也接收显式 v1 样本。
 - `journal` 先写入 traffic intent，再执行原子 apply，最后串接提交决策、发布 status 并更新配额视图。重启依据应用端实际操作 ID 对账。决策哈希和检查点用于一致性校验，收据包含保留决策与检查点上最近的该发布记录。
-- `quota` 从日志恢复已授予预留。每个服务同一时间只允许一个活跃预留；命名空间同时限制发布数和候选就绪单位。晋级或回退完成时在同一个决策中清除预留。
+- `quota` 从日志恢复已授予预留。每个服务同一时间只允许一个活跃预留；命名空间同时限制发布数和候选就绪单位。`sharedQuota` 另设一个跨命名空间的共享候选单位池，成员命名空间的授予须同时满足自身限额和池内余量，二者独立生效。并发调谐争抢最后一份共享额度时，由调谐引擎互斥锁串行化准入：先提交 `ReservationGranted` 决策并安装预留的一方获得，另一方以 `Admitted=false`（`SharedBudget`）等待，日志序号比较并交换与安装期身份核对作为兜底。只有持有该预留的发布到达终态（晋级或回退完成）才在同一个决策中归还份额；共享池占用完全由日志中的预留复算，重启后已获额度与等待结果均可重放得出。
 
 | 持久文件 | 权威内容 |
 | --- | --- |
@@ -67,7 +67,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 | `PUT /v1/releases` | 创建或更新 v1 ReleaseSpec |
 | `GET /v1/releases`、`GET /v1/releases/ns/name` | desired 及已发布 status |
 | `GET /v1/releases/ns/name/receipt` | 可复算决策收据 |
-| `GET /v1/namespaces/ns/quota` | 当前限额、占用和预留 |
+| `GET /v1/namespaces/ns/quota` | 当前限额、占用、预留及共享池视图 |
 | `GET /v1/traffic/ns/svc`、`GET /v1/traffic/ns/svc/activity` | 实际绑定及按 UID 的在途请求 |
 | `POST /v1/samples`、`GET /v1/samples/ns/svc/R` | 当前绑定的样本摄入与封存证据 |
 | `GET /v1/decisions?after=S&limit=N` | 决策分页及压缩水位 |

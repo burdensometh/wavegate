@@ -16,6 +16,7 @@ type Config struct {
 	StateDirectory    string                 `json:"stateDirectory"`
 	DefaultQuota      quota.Limit            `json:"defaultQuota"`
 	Quotas            map[string]quota.Limit `json:"quotas"`
+	SharedQuota       quota.Shared           `json:"sharedQuota"`
 	EndpointHistory   int                    `json:"endpointHistory"`
 	JournalRetention  int                    `json:"journalRetention"`
 	ReconcileMS       int                    `json:"reconcileMs"`
@@ -79,7 +80,7 @@ func (c Config) Validate() error {
 			return err
 		}
 	}
-	return nil
+	return c.SharedQuota.Validate()
 }
 
 func (c Config) ReconcileInterval() time.Duration {

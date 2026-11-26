@@ -12,6 +12,10 @@
       "candidateUnits": 2
     }
   },
+  "sharedQuota": {
+    "candidateUnits": 3,
+    "namespaces": ["shop", "payments"]
+  },
   "endpointHistory": 256,
   "journalRetention": 128,
   "reconcileMs": 200,

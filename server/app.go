@@ -97,7 +97,7 @@ func Open(cfg config.Config, options Options) (_ *App, resultErr error) {
 	}
 	app.Engine, err = rollout.New(rollout.Dependencies{
 		Specs: app.Specs, Index: app.Index, Fence: app.Catalog, Plane: plane, Windows: app.Metrics, Journal: app.Journal,
-		Clock: at, DefaultQuota: cfg.DefaultQuota, Quotas: cfg.Quotas, Drain: cfg.Drain(),
+		Clock: at, DefaultQuota: cfg.DefaultQuota, Quotas: cfg.Quotas, SharedQuota: cfg.SharedQuota, Drain: cfg.Drain(),
 		DrainInUse: app.Drain.InUse,
 	})
 	if err != nil {

@@ -22,6 +22,44 @@ func (l Limit) Validate() error {
 	return nil
 }
 
+// Shared is a candidate-unit pool spanning several namespaces. Member
+// namespaces still obey their own Limit; a grant must fit both budgets.
+type Shared struct {
+	CandidateUnits int      `json:"candidateUnits"`
+	Namespaces     []string `json:"namespaces"`
+}
+
+func (s Shared) Validate() error {
+	if len(s.Namespaces) == 0 {
+		if s.CandidateUnits != 0 {
+			return v1.Invalid("shared candidate units require member namespaces")
+		}
+		return nil
+	}
+	if s.CandidateUnits < 1 || s.CandidateUnits > 1000000 {
+		return v1.Invalid("shared candidate units")
+	}
+	seen := make(map[string]bool, len(s.Namespaces))
+	for _, namespace := range s.Namespaces {
+		if !v1.ValidLabel(namespace) || seen[namespace] {
+			return v1.Invalid("shared quota namespace")
+		}
+		seen[namespace] = true
+	}
+	return nil
+}
+
+func (s Shared) member(namespace string) bool {
+	return slices.Contains(s.Namespaces, namespace)
+}
+
+// SharedUsage reports the shared candidate pool to a member namespace.
+type SharedUsage struct {
+	Limit          int                       `json:"limit"`
+	CandidateUnits int                       `json:"candidateUnits"`
+	Reservations   []v1.NamespaceReservation `json:"reservations"`
+}
+
 type Usage struct {
 	APIVersion     string                    `json:"apiVersion"`
 	Namespace      string                    `json:"namespace"`
@@ -29,22 +67,27 @@ type Usage struct {
 	Releases       int                       `json:"releases"`
 	CandidateUnits int                       `json:"candidateUnits"`
 	Reservations   []v1.NamespaceReservation `json:"reservations"`
+	Shared         *SharedUsage              `json:"shared,omitempty"`
 }
 
 type Book struct {
 	mu       sync.RWMutex
 	base     Limit
 	limits   map[string]Limit
+	shared   Shared
 	services map[v1.Service]v1.NamespaceReservation
 	uids     map[string]v1.Service
 }
 
-func New(base Limit, limits map[string]Limit, recovered []v1.NamespaceReservation) (*Book, error) {
+func New(base Limit, limits map[string]Limit, shared Shared, recovered []v1.NamespaceReservation) (*Book, error) {
 	if err := base.Validate(); err != nil {
 		return nil, err
 	}
+	if err := shared.Validate(); err != nil {
+		return nil, err
+	}
 	book := &Book{
-		base: base, limits: make(map[string]Limit, len(limits)),
+		base: base, limits: make(map[string]Limit, len(limits)), shared: shared,
 		services: make(map[v1.Service]v1.NamespaceReservation), uids: make(map[string]v1.Service),
 	}
 	for namespace, limit := range limits {
@@ -94,17 +137,40 @@ func (b *Book) usage(namespace string) Usage {
 	return usage
 }
 
+// sharedUsage sums the live reservations of every member namespace. It is
+// derived state: the journal remains the only durable record of reservations.
+func (b *Book) sharedUsage() SharedUsage {
+	usage := SharedUsage{Limit: b.shared.CandidateUnits, Reservations: []v1.NamespaceReservation{}}
+	for service, reservation := range b.services {
+		if b.shared.member(service.Namespace) {
+			usage.CandidateUnits += reservation.Units
+			usage.Reservations = append(usage.Reservations, reservation)
+		}
+	}
+	return usage
+}
+
+func byService(a, b v1.NamespaceReservation) int {
+	return cmp.Or(cmp.Compare(a.Service.Namespace, b.Service.Namespace), cmp.Compare(a.Service.Name, b.Service.Name))
+}
+
 func (b *Book) Usage(namespace string) Usage {
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	usage := b.usage(namespace)
-	slices.SortFunc(usage.Reservations, func(a, b v1.NamespaceReservation) int {
-		return cmp.Compare(a.Service.Name, b.Service.Name)
-	})
+	slices.SortFunc(usage.Reservations, byService)
+	if b.shared.member(namespace) {
+		shared := b.sharedUsage()
+		slices.SortFunc(shared.Reservations, byService)
+		usage.Shared = &shared
+	}
 	return usage
 }
 
 // Plan creates a reservation that becomes live only after the journal commit.
+// The per-namespace budget is checked first, then the shared pool; callers
+// serialize Plan with Install so the last shared unit goes to at most one
+// release.
 func (b *Book) Plan(spec v1.ReleaseSpec, version uint64, at time.Time) (v1.NamespaceReservation, string) {
 	b.mu.RLock()
 	defer b.mu.RUnlock()
@@ -117,6 +183,9 @@ func (b *Book) Plan(spec v1.ReleaseSpec, version uint64, at time.Time) (v1.Names
 	usage := b.usage(spec.Service.Namespace)
 	if usage.Releases >= usage.Limit.Releases || usage.CandidateUnits+spec.MinReady > usage.Limit.CandidateUnits {
 		return v1.NamespaceReservation{}, "NamespaceBudget"
+	}
+	if b.shared.member(spec.Service.Namespace) && b.sharedUsage().CandidateUnits+spec.MinReady > b.shared.CandidateUnits {
+		return v1.NamespaceReservation{}, "SharedBudget"
 	}
 	return v1.NamespaceReservation{
 		APIVersion: v1.Version, Service: spec.Service, ReleaseUID: spec.UID,

@@ -51,6 +51,7 @@ type Dependencies struct {
 	Clock        clock.Clock
 	DefaultQuota quota.Limit
 	Quotas       map[string]quota.Limit
+	SharedQuota  quota.Shared
 	Drain        time.Duration
 	DrainInUse   func(v1.Service, v1.Target) bool
 }
@@ -70,7 +71,7 @@ func New(deps Dependencies) (*Engine, error) {
 			reservations = append(reservations, *state.Reservation)
 		}
 	}
-	book, err := quota.New(deps.DefaultQuota, deps.Quotas, reservations)
+	book, err := quota.New(deps.DefaultQuota, deps.Quotas, deps.SharedQuota, reservations)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +86,13 @@ func New(deps Dependencies) (*Engine, error) {
 func (e *Engine) Usage(namespace string) quota.Usage { return e.book.Usage(namespace) }
 
 // Reconcile advances at most one durable decision. Independent releases can be
-// triggered concurrently. The engine serializes reservation and journal mutations.
+// triggered concurrently. The engine mutex serializes every admission: quota
+// planning, the journal commit, and the book install happen under this one
+// lock, so two reconciles racing for the last shared candidate unit are
+// decided here — the first commits ReservationGranted and installs it, the
+// second replans against the updated book and waits with Admitted=false
+// (SharedBudget). The journal sequence compare-and-swap and the book's
+// install-time identity checks are backstops, not the primary gate.
 func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
