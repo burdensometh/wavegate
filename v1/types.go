@@ -90,12 +90,13 @@ type Rule struct {
 }
 
 type TrafficBinding struct {
-	APIVersion      string    `json:"apiVersion"`
-	OwnerUID        string    `json:"ownerUid"`
-	ResourceVersion uint64    `json:"resourceVersion"`
-	Operation       string    `json:"operation"`
-	AppliedAt       time.Time `json:"appliedAt"`
-	Rule            Rule      `json:"rule"`
+	APIVersion      string             `json:"apiVersion"`
+	OwnerUID        string             `json:"ownerUid"`
+	ResourceVersion uint64             `json:"resourceVersion"`
+	Operation       string             `json:"operation"`
+	Identity        *OperationIdentity `json:"identity,omitempty"`
+	AppliedAt       time.Time          `json:"appliedAt"`
+	Rule            Rule               `json:"rule"`
 }
 
 type Sample struct {
@@ -175,11 +176,12 @@ type ReleaseStatus struct {
 }
 
 type Intent struct {
-	Operation       string `json:"operation"`
-	ExpectedVersion uint64 `json:"expectedVersion"`
-	Kind            string `json:"kind"`
-	Step            int    `json:"step"`
-	Rule            Rule   `json:"rule"`
+	Operation       string             `json:"operation"`
+	Identity        *OperationIdentity `json:"identity,omitempty"`
+	ExpectedVersion uint64             `json:"expectedVersion"`
+	Kind            string             `json:"kind"`
+	Step            int                `json:"step"`
+	Rule            Rule               `json:"rule"`
 }
 
 type ReleaseState struct {

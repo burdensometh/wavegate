@@ -166,7 +166,8 @@ func (s *scenario) restartAfterApply(ctx context.Context, spec v1.ReleaseSpec, p
 	if err != nil {
 		return 0, err
 	}
-	if live.Operation != prepared.Intent.Operation || live.ResourceVersion <= prior {
+	if !v1.SameOperation(live.Identity, live.Operation, prepared.Intent.Identity, prepared.Intent.Operation) ||
+		live.ResourceVersion <= prior {
 		return 0, fmt.Errorf("receipt drop did not occur after traffic apply")
 	}
 	if err := s.close(); err != nil {
@@ -182,7 +183,8 @@ func (s *scenario) restartAfterApply(ctx context.Context, spec v1.ReleaseSpec, p
 	if err != nil {
 		return 0, err
 	}
-	if recovered.Status.BindingVersion != live.ResourceVersion || recovered.Binding.Operation != live.Operation {
+	if recovered.Status.BindingVersion != live.ResourceVersion ||
+		!v1.SameOperation(recovered.Binding.Identity, recovered.Binding.Operation, live.Identity, live.Operation) {
 		return 0, fmt.Errorf("recovery applied the second step more than once")
 	}
 	s.observe("resume", "recovered-unacknowledged-apply", nil, struct {

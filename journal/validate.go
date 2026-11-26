@@ -138,11 +138,29 @@ func validatePhase(state v1.ReleaseState) error {
 	return nil
 }
 
+func validateIntentOperation(intent *v1.Intent, owner string) error {
+	if intent.Identity == nil {
+		// Legacy prepared intent: the bare operation token is the full identity.
+		return nil
+	}
+	if err := intent.Identity.Validate(); err != nil {
+		return err
+	}
+	if intent.Identity.External != intent.Operation || intent.Identity.OwnerUID != owner ||
+		intent.Identity.Service != intent.Rule.Service {
+		return v1.Invalid("decision intent operation identity does not match its rule")
+	}
+	return nil
+}
+
 func validateIntent(state v1.ReleaseState) error {
 	intent, spec, status := state.Intent, state.Spec, state.Status
 	if !v1.ValidToken(intent.Operation) || intent.Rule.Service != spec.Service ||
 		(state.Binding != nil && intent.ExpectedVersion != status.BindingVersion) {
 		return v1.Invalid("decision intent identity")
+	}
+	if err := validateIntentOperation(intent, spec.UID); err != nil {
+		return err
 	}
 	if err := intent.Rule.Validate(); err != nil {
 		return err
@@ -213,7 +231,7 @@ func validateTransition(previous, current v1.DecisionRecord) error {
 	}
 	if state.Status.BindingVersion > old.Status.BindingVersion {
 		if old.Intent == nil || state.Intent != nil || state.Binding == nil ||
-			state.Binding.Operation != old.Intent.Operation || !traffic.SameRule(state.Binding.Rule, old.Intent.Rule) {
+			!v1.BindingAcknowledgesIntent(*state.Binding, *old.Intent) || !traffic.SameRule(state.Binding.Rule, old.Intent.Rule) {
 			return v1.Invalid("changed binding lacks matching prepared operation")
 		}
 	} else if !reflect.DeepEqual(state.Binding, old.Binding) {

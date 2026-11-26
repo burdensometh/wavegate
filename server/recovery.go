@@ -137,13 +137,15 @@ func checkPublished(view rollout.ReleaseView, status v1.ReleaseStatus) error {
 }
 
 func sameBinding(persisted *v1.TrafficBinding, live v1.TrafficBinding) bool {
-	return persisted != nil && persisted.ResourceVersion == live.ResourceVersion && persisted.Operation == live.Operation &&
+	return persisted != nil && persisted.ResourceVersion == live.ResourceVersion &&
+		v1.SameOperation(persisted.Identity, persisted.Operation, live.Identity, live.Operation) &&
 		persisted.OwnerUID == live.OwnerUID && persisted.AppliedAt.Equal(live.AppliedAt) && traffic.SameRule(persisted.Rule, live.Rule)
 }
 
 func matchesIntent(state v1.ReleaseState, live v1.TrafficBinding) bool {
 	intent := state.Intent
-	return intent != nil && live.OwnerUID == state.Spec.UID && live.Operation == intent.Operation &&
+	return intent != nil && live.OwnerUID == state.Spec.UID &&
+		v1.SameOperation(live.Identity, live.Operation, intent.Identity, intent.Operation) &&
 		live.ResourceVersion > intent.ExpectedVersion && traffic.SameRule(live.Rule, intent.Rule)
 }
 

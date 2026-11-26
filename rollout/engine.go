@@ -131,7 +131,8 @@ func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
 	}
 	if state.Binding != nil {
 		if !exists || binding.ResourceVersion != state.Binding.ResourceVersion || binding.OwnerUID != spec.UID ||
-			binding.Operation != state.Binding.Operation || !traffic.SameRule(binding.Rule, state.Binding.Rule) {
+			!v1.SameOperation(binding.Identity, binding.Operation, state.Binding.Identity, state.Binding.Operation) ||
+			!traffic.SameRule(binding.Rule, state.Binding.Rule) {
 			return fmt.Errorf("%w: live binding diverged from committed decision for %s", v1.ErrConflict, spec.Service)
 		}
 	} else if exists && binding.OwnerUID == spec.UID {

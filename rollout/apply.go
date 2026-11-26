@@ -12,14 +12,14 @@ import (
 )
 
 func (e *Engine) prepare(now time.Time, state v1.ReleaseState, live v1.TrafficBinding, kind string, step int, rule v1.Rule, reason string) error {
-	id, err := v1.Digest(struct {
-		UID      string
-		Sequence uint64
-	}{state.Spec.UID, e.journal.Sequence() + 1})
+	identity, err := v1.NewOperationIdentity(rule.Service, state.Spec.UID, e.journal.Sequence()+1)
 	if err != nil {
 		return err
 	}
-	state.Intent = &v1.Intent{Operation: id, ExpectedVersion: live.ResourceVersion, Kind: kind, Step: step, Rule: rule}
+	state.Intent = &v1.Intent{
+		Operation: identity.External, Identity: &identity,
+		ExpectedVersion: live.ResourceVersion, Kind: kind, Step: step, Rule: rule,
+	}
 	if kind == v1.RollBack {
 		state.Status.Phase = v1.RollingBack
 		state.Window = nil
@@ -30,7 +30,7 @@ func (e *Engine) prepare(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 
 func (e *Engine) execute(ctx context.Context, now time.Time, state v1.ReleaseState, live v1.TrafficBinding, snapshot discovery.Snapshot) error {
 	intent := *state.Intent
-	if live.Operation == intent.Operation {
+	if v1.SameOperation(live.Identity, live.Operation, intent.Identity, intent.Operation) {
 		if live.OwnerUID != state.Spec.UID || !traffic.SameRule(live.Rule, intent.Rule) || live.ResourceVersion <= intent.ExpectedVersion {
 			return fmt.Errorf("%w: live receipt does not match prepared traffic operation", v1.ErrConflict)
 		}
@@ -95,7 +95,8 @@ func (e *Engine) complete(now time.Time, state v1.ReleaseState, binding v1.Traff
 	if err := traffic.ValidateBinding(binding); err != nil {
 		return err
 	}
-	if binding.Operation != intent.Operation || binding.OwnerUID != state.Spec.UID ||
+	if !v1.SameOperation(binding.Identity, binding.Operation, intent.Identity, intent.Operation) ||
+		binding.OwnerUID != state.Spec.UID ||
 		binding.ResourceVersion <= intent.ExpectedVersion || !traffic.SameRule(binding.Rule, intent.Rule) {
 		return fmt.Errorf("%w: apply receipt does not match prepared traffic operation", v1.ErrConflict)
 	}
@@ -158,7 +159,8 @@ func (e *Engine) terminal(now time.Time, state v1.ReleaseState, live v1.TrafficB
 	if state.Binding == nil || live.OwnerUID != state.Spec.UID {
 		return nil
 	}
-	if live.ResourceVersion != state.Binding.ResourceVersion || live.Operation != state.Binding.Operation ||
+	if live.ResourceVersion != state.Binding.ResourceVersion ||
+		!v1.SameOperation(live.Identity, live.Operation, state.Binding.Identity, state.Binding.Operation) ||
 		!traffic.SameRule(live.Rule, state.Binding.Rule) {
 		return fmt.Errorf("%w: terminal binding diverged for %s", v1.ErrConflict, state.Spec.Service)
 	}

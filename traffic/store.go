@@ -80,7 +80,28 @@ func ValidateBinding(binding v1.TrafficBinding) error {
 	if !v1.ValidToken(binding.OwnerUID) || !v1.ValidToken(binding.Operation) || binding.AppliedAt.IsZero() || binding.ResourceVersion == 0 {
 		return v1.Invalid("traffic binding ownership, operation or version")
 	}
+	if err := validateIdentity(binding.Identity, binding.Operation, binding.OwnerUID, binding.Rule.Service); err != nil {
+		return err
+	}
 	return binding.Rule.Validate()
+}
+
+// validateIdentity checks a composite operation identity when present. Legacy
+// bindings and intents carry a nil identity and keep relying on the bare
+// operation token. A present identity must be internally consistent: its
+// external flow is the binding's operation and its service/owner match the
+// rule service and the binding owner, which is what scopes acknowledgements.
+func validateIdentity(identity *v1.OperationIdentity, operation, owner string, service v1.Service) error {
+	if identity == nil {
+		return nil
+	}
+	if err := identity.Validate(); err != nil {
+		return err
+	}
+	if identity.External != operation || identity.OwnerUID != owner || identity.Service != service {
+		return v1.Invalid("traffic operation identity does not match its binding")
+	}
+	return nil
 }
 
 func (s *Store) Observe(service v1.Service) (v1.TrafficBinding, bool, error) {
@@ -133,6 +154,9 @@ func (s *Store) Apply(ctx context.Context, request ApplyRequest) (v1.TrafficBind
 	if !v1.ValidToken(request.OwnerUID) || !v1.ValidToken(request.Intent.Operation) || request.At.IsZero() {
 		return v1.TrafficBinding{}, v1.Invalid("apply operation, owner or time")
 	}
+	if err := validateIdentity(request.Intent.Identity, request.Intent.Operation, request.OwnerUID, request.Intent.Rule.Service); err != nil {
+		return v1.TrafficBinding{}, err
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.uncertain != nil {
@@ -143,14 +167,23 @@ func (s *Store) Apply(ctx context.Context, request ApplyRequest) (v1.TrafficBind
 	}
 	key := request.Intent.Rule.Service.String()
 	current := s.doc.Bindings[key]
-	if current.Operation == request.Intent.Operation {
+	sameOperation := v1.SameOperation(current.Identity, current.Operation, request.Intent.Identity, request.Intent.Operation)
+	switch {
+	case sameOperation:
+		// SameOperation already proves the service (the map key) and, for the
+		// composite form, owner and external flow. A reused flow with another
+		// owner or rule is a conflict rather than an acknowledgement.
 		if current.OwnerUID == request.OwnerUID && SameRule(current.Rule, request.Intent.Rule) {
 			current.Rule = cloneRule(current.Rule)
 			return current, nil
 		}
 		return v1.TrafficBinding{}, fmt.Errorf("%w: operation reused for another owner or rule", v1.ErrConflict)
-	}
-	if current.ResourceVersion != request.Intent.ExpectedVersion {
+	case current.Operation == request.Intent.Operation:
+		// The external flow already exists on this service but under a different
+		// composite identity (or on the other side of the v1/v2 upgrade). It must
+		// never be acknowledged as the request's applied result.
+		return v1.TrafficBinding{}, fmt.Errorf("%w: external flow is bound to another operation identity", v1.ErrConflict)
+	case current.ResourceVersion != request.Intent.ExpectedVersion:
 		return v1.TrafficBinding{}, v1.ErrConflict
 	}
 	if current.ResourceVersion > 0 && current.OwnerUID != request.OwnerUID {
@@ -169,9 +202,15 @@ func (s *Store) Apply(ctx context.Context, request ApplyRequest) (v1.TrafficBind
 	for k, binding := range s.doc.Bindings {
 		next.Bindings[k] = binding
 	}
+	var identity *v1.OperationIdentity
+	if request.Intent.Identity != nil {
+		cloned := *request.Intent.Identity
+		identity = &cloned
+	}
 	binding := v1.TrafficBinding{
 		APIVersion: v1.Version, OwnerUID: request.OwnerUID, ResourceVersion: next.Version,
-		Operation: request.Intent.Operation, AppliedAt: request.At.UTC(), Rule: cloneRule(request.Intent.Rule),
+		Operation: request.Intent.Operation, Identity: identity,
+		AppliedAt: request.At.UTC(), Rule: cloneRule(request.Intent.Rule),
 	}
 	next.Bindings[key] = binding
 	renamed, err := statefile.Write(s.path, next)
