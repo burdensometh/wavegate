@@ -37,7 +37,8 @@ func (e *Engine) scan(ctx context.Context, report func(error)) {
 	}
 	for _, view := range list.Items {
 		if err := e.Reconcile(ctx, view.Spec.Service.Namespace, view.Spec.Name); err != nil &&
-			report != nil && !errors.Is(err, context.Canceled) && !errors.Is(err, v1.ErrNotFound) {
+			report != nil && !errors.Is(err, context.Canceled) && !errors.Is(err, v1.ErrNotFound) &&
+			!errors.Is(err, ErrStopping) {
 			report(fmt.Errorf("reconcile %s: %w", view.Spec.Key(), err))
 		}
 	}

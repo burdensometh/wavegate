@@ -17,5 +17,6 @@
   "reconcileMs": 200,
   "watchRetryMs": 100,
   "upstreamTimeoutMs": 3000,
-  "drainMs": 2000
+  "drainMs": 2000,
+  "shutdownDrainMs": 5000
 }

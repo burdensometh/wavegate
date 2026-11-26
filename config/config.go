@@ -22,6 +22,7 @@ type Config struct {
 	WatchRetryMS      int                    `json:"watchRetryMs"`
 	UpstreamTimeoutMS int                    `json:"upstreamTimeoutMs"`
 	DrainMS           int                    `json:"drainMs"`
+	ShutdownDrainMS   int                    `json:"shutdownDrainMs"`
 }
 
 func Default() Config {
@@ -29,7 +30,7 @@ func Default() Config {
 		APIVersion: v1.Version, Listen: "127.0.0.1:8080", StateDirectory: "var/wavegate",
 		DefaultQuota: quota.Limit{Releases: 2, CandidateUnits: 4}, Quotas: map[string]quota.Limit{},
 		EndpointHistory: 256, JournalRetention: 128, ReconcileMS: 200, WatchRetryMS: 100,
-		UpstreamTimeoutMS: 3000, DrainMS: 2000,
+		UpstreamTimeoutMS: 3000, DrainMS: 2000, ShutdownDrainMS: 5000,
 	}
 }
 
@@ -65,7 +66,8 @@ func (c Config) Validate() error {
 		return v1.Invalid("state directory or history retention")
 	}
 	if c.ReconcileMS < 1 || c.ReconcileMS > 60000 || c.WatchRetryMS < 1 || c.WatchRetryMS > 60000 ||
-		c.UpstreamTimeoutMS < 1 || c.UpstreamTimeoutMS > 60000 || c.DrainMS < 0 || c.DrainMS > 60000 {
+		c.UpstreamTimeoutMS < 1 || c.UpstreamTimeoutMS > 60000 || c.DrainMS < 0 || c.DrainMS > 60000 ||
+		c.ShutdownDrainMS < 0 || c.ShutdownDrainMS > 60000 {
 		return v1.Invalid("poll, retry, upstream or drain interval")
 	}
 	if err := c.DefaultQuota.Validate(); err != nil {
@@ -90,3 +92,9 @@ func (c Config) UpstreamTimeout() time.Duration {
 	return time.Duration(c.UpstreamTimeoutMS) * time.Millisecond
 }
 func (c Config) Drain() time.Duration { return time.Duration(c.DrainMS) * time.Millisecond }
+
+// ShutdownDrain bounds the planned-stop window: registered in-flight proxy
+// responses get this long to complete before residual connections end.
+func (c Config) ShutdownDrain() time.Duration {
+	return time.Duration(c.ShutdownDrainMS) * time.Millisecond
+}

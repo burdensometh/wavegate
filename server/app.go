@@ -23,21 +23,23 @@ import (
 )
 
 type App struct {
-	cfg        config.Config
-	Clock      clock.Clock
-	Catalog    *discovery.Catalog
-	Index      *discovery.Index
-	Specs      *rollout.Specs
-	Plane      *traffic.Store
-	Metrics    *metrics.Store
-	Journal    *journal.Store
-	Engine     *rollout.Engine
-	Drain      *traffic.DrainTracker
-	Recovery   RecoveryReport
-	router     *traffic.Router
-	transport  *http.Transport
-	lease      *os.File
-	wrapSource func(discovery.Source) discovery.Source
+	cfg         config.Config
+	Clock       clock.Clock
+	Catalog     *discovery.Catalog
+	Index       *discovery.Index
+	Specs       *rollout.Specs
+	Plane       *traffic.Store
+	Metrics     *metrics.Store
+	Journal     *journal.Store
+	Engine      *rollout.Engine
+	Drain       *traffic.DrainTracker
+	Recovery    RecoveryReport
+	router      *traffic.Router
+	transport   *http.Transport
+	lease       *os.File
+	proxyBase   context.Context
+	proxyCancel context.CancelFunc
+	wrapSource  func(discovery.Source) discovery.Source
 }
 
 type Options struct {
@@ -66,6 +68,12 @@ func Open(cfg config.Config, options Options) (_ *App, resultErr error) {
 	}
 	app := &App{cfg: cfg, Clock: at, Index: discovery.NewIndex(), lease: lease,
 		Drain: traffic.NewDrainTracker(), wrapSource: options.WrapSource}
+	app.proxyBase, app.proxyCancel = context.WithCancel(context.Background())
+	defer func() {
+		if resultErr != nil {
+			app.proxyCancel()
+		}
+	}()
 	path := func(name string) string { return filepath.Join(cfg.StateDirectory, name+".v1.json") }
 	app.Catalog, err = discovery.OpenCatalog(path("endpoints"), cfg.EndpointHistory)
 	if err != nil {
@@ -117,6 +125,7 @@ func Open(cfg config.Config, options Options) (_ *App, resultErr error) {
 }
 
 func (a *App) Close() error {
+	a.proxyCancel()
 	a.transport.CloseIdleConnections()
 	return a.lease.Close()
 }
@@ -146,14 +155,22 @@ func (a *App) Serve(ctx context.Context, listener net.Listener, report func(erro
 		a.Engine.Run(runCtx, a.cfg.ReconcileInterval(), a.Index.Notify(), report)
 	}()
 	var result error
+	planned := false
 	select {
 	case <-runCtx.Done():
+		planned = true
 	case err := <-serving:
 		if !errors.Is(err, http.ErrServerClosed) {
 			result = err
 		}
 	}
 	cancel()
+	if planned {
+		if err := a.drainRegistered(); err != nil {
+			result = errors.Join(result, fmt.Errorf("planned stop: %w before all registered responses finished", err))
+		}
+	}
+	a.proxyCancel()
 	shutdownCtx, stop := context.WithTimeout(context.Background(), 5*time.Second)
 	defer stop()
 	if err := httpServer.Shutdown(shutdownCtx); err != nil {
@@ -162,4 +179,16 @@ func (a *App) Serve(ctx context.Context, listener net.Listener, report func(erro
 	<-followed
 	<-reconciled
 	return result
+}
+
+// drainRegistered runs the planned-stop sequence: refuse new proxied requests
+// and new traffic operations, then give registered in-flight responses the
+// configured window to finish. Observation endpoints keep serving throughout;
+// residual connections end only after the window expires.
+func (a *App) drainRegistered() error {
+	a.Drain.BeginDrain()
+	a.Engine.Stop()
+	drainCtx, stop := context.WithTimeout(context.Background(), a.cfg.ShutdownDrain())
+	defer stop()
+	return a.Drain.WaitEmpty(drainCtx)
 }

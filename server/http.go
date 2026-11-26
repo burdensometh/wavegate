@@ -302,7 +302,11 @@ func (a *App) route(w http.ResponseWriter, r *http.Request) {
 	}
 	// The fake API accepts controlled endpoint fixtures. Only localhost
 	// origins are accepted by v1 validation for downstream connections.
-	ctx, cancel := context.WithTimeout(r.Context(), a.cfg.UpstreamTimeout())
+	// The upstream context hangs off proxyBase, not the server base context:
+	// a planned stop must not abort registered in-flight responses. They end
+	// when the response completes, the upstream timeout hits, or the drain
+	// window expires and proxyBase is cancelled.
+	ctx, cancel := context.WithTimeout(a.proxyBase, a.cfg.UpstreamTimeout())
 	defer cancel()
 	request := r.Clone(ctx)
 	request.URL.Path = "/" + r.PathValue("path")

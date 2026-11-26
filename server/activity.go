@@ -11,6 +11,7 @@ type activityView struct {
 	APIVersion             string                    `json:"apiVersion"`
 	Service                v1.Service                `json:"service"`
 	ObservedBindingVersion uint64                    `json:"observedBindingVersion"`
+	Draining               bool                      `json:"draining"`
 	Requests               []traffic.RequestActivity `json:"requests"`
 }
 
@@ -29,6 +30,7 @@ func (a *App) activity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	reply(w, http.StatusOK, activityView{
-		APIVersion: v1.Version, Service: service, ObservedBindingVersion: binding.ResourceVersion, Requests: a.Drain.Activity(service),
+		APIVersion: v1.Version, Service: service, ObservedBindingVersion: binding.ResourceVersion,
+		Draining: a.Drain.Draining(), Requests: a.Drain.Activity(service),
 	})
 }

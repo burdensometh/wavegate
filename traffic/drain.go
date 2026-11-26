@@ -2,6 +2,7 @@ package traffic
 
 import (
 	"cmp"
+	"context"
 	"slices"
 	"sync"
 
@@ -21,12 +22,30 @@ type requestGroup struct {
 }
 
 type DrainTracker struct {
-	mu     sync.RWMutex
-	active map[requestGroup]int
+	mu       sync.RWMutex
+	active   map[requestGroup]int
+	empty    chan struct{}
+	draining bool
 }
 
 func NewDrainTracker() *DrainTracker {
-	return &DrainTracker{active: make(map[requestGroup]int)}
+	empty := make(chan struct{})
+	close(empty)
+	return &DrainTracker{active: make(map[requestGroup]int), empty: empty}
+}
+
+// BeginDrain switches the tracker into the planned-stop state: the router
+// rejects new proxied requests while registered ones finish.
+func (d *DrainTracker) BeginDrain() {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+	d.draining = true
+}
+
+func (d *DrainTracker) Draining() bool {
+	d.mu.RLock()
+	defer d.mu.RUnlock()
+	return d.draining
 }
 
 // Begin runs under the endpoint and binding admission fences. End is called
@@ -34,6 +53,9 @@ func NewDrainTracker() *DrainTracker {
 func (d *DrainTracker) Begin(service v1.Service, target v1.Target, version uint64) func() {
 	group := requestGroup{service: service, target: target, version: version}
 	d.mu.Lock()
+	if len(d.active) == 0 {
+		d.empty = make(chan struct{})
+	}
 	d.active[group]++
 	d.mu.Unlock()
 	return sync.OnceFunc(func() {
@@ -44,7 +66,28 @@ func (d *DrainTracker) Begin(service v1.Service, target v1.Target, version uint6
 		} else {
 			d.active[group]--
 		}
+		if len(d.active) == 0 {
+			close(d.empty)
+		}
 	})
+}
+
+// WaitEmpty blocks until every registered request has ended or ctx expires.
+func (d *DrainTracker) WaitEmpty(ctx context.Context) error {
+	for {
+		d.mu.RLock()
+		if len(d.active) == 0 {
+			d.mu.RUnlock()
+			return nil
+		}
+		empty := d.empty
+		d.mu.RUnlock()
+		select {
+		case <-empty:
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
 }
 
 func (d *DrainTracker) InUse(service v1.Service, target v1.Target) bool {

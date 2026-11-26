@@ -2,6 +2,7 @@ package rollout
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sync"
 	"time"
@@ -39,7 +40,12 @@ type Engine struct {
 	drain       time.Duration
 	drainInUse  func(v1.Service, v1.Target) bool
 	generations map[string]uint64
+	stopping    bool
 }
+
+// ErrStopping rejects reconcile work after a planned stop begins. Prepared
+// intents stay persisted and are resumed exactly once by the next process.
+var ErrStopping = errors.New("rollout: controller stopping")
 
 type Dependencies struct {
 	Specs        *Specs
@@ -84,6 +90,16 @@ func New(deps Dependencies) (*Engine, error) {
 
 func (e *Engine) Usage(namespace string) quota.Usage { return e.book.Usage(namespace) }
 
+// Stop ends mutation for a planned shutdown: after it returns, Reconcile
+// prepares no new traffic operations and applies none of the persisted ones.
+// Stop takes the engine lock, so a reconcile already in flight finishes its
+// decision first; everything prepared stays durable for the next startup.
+func (e *Engine) Stop() {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+	e.stopping = true
+}
+
 // Reconcile advances at most one durable decision. Independent releases can be
 // triggered concurrently. The engine serializes reservation and journal mutations.
 func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
@@ -91,6 +107,9 @@ func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
 	defer e.mu.Unlock()
 	if err := ctx.Err(); err != nil {
 		return err
+	}
+	if e.stopping {
+		return ErrStopping
 	}
 	view, err := e.specs.Get(namespace, name)
 	if err != nil {

@@ -74,6 +74,10 @@ func (r *Router) selectRole(binding v1.TrafficBinding) (role string, index uint6
 }
 
 func (r *Router) ServeService(w http.ResponseWriter, req *http.Request, service v1.Service) {
+	if r.tracker.Draining() {
+		http.Error(w, "controller draining for planned stop", http.StatusServiceUnavailable)
+		return
+	}
 	request, err := r.admit(service)
 	if err != nil {
 		routeUnavailable(w, err)

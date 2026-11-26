@@ -12,7 +12,9 @@ go build -trimpath -o bin/wavegate ./cmd/wavegate
 bin/wavegate serve -config config/wavegate.v1.json
 ```
 
-配置文件给出监听地址、持久目录、默认与逐命名空间配额、watch 历史、决策保留量、调谐周期、上游超时和排空时间。API 与端点地址均限本机 loopback。一个进程持有一个状态目录的独占租约。使用相同状态目录重启时会先核对五份 v1 文档的提交边界，再恢复配额和调谐。
+配置文件给出监听地址、持久目录、默认与逐命名空间配额、watch 历史、决策保留量、调谐周期、上游超时、切流排空时间和计划内停止排空期限（`shutdownDrainMs`）。API 与端点地址均限本机 loopback。一个进程持有一个状态目录的独占租约。使用相同状态目录重启时会先核对五份 v1 文档的提交边界，再恢复配额和调谐。
+
+收到停止信号后进入有界排空：`/route` 立即拒绝新的代理请求（503），调谐器不再准备新的切流操作，已落盘的切流操作留在日志中，由下次启动按操作 ID 续认一次。已登记的在途响应在 `shutdownDrainMs` 期限内照常完成，期限耗尽才结束残留连接。排空期间 `GET /v1/traffic/ns/svc/activity` 保持可用，并返回 `draining: true` 与按 UID 的在途请求数。
 
 ## 可重复演示
 
@@ -68,7 +70,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 | `GET /v1/releases`、`GET /v1/releases/ns/name` | desired 及已发布 status |
 | `GET /v1/releases/ns/name/receipt` | 可复算决策收据 |
 | `GET /v1/namespaces/ns/quota` | 当前限额、占用和预留 |
-| `GET /v1/traffic/ns/svc`、`GET /v1/traffic/ns/svc/activity` | 实际绑定及按 UID 的在途请求 |
+| `GET /v1/traffic/ns/svc`、`GET /v1/traffic/ns/svc/activity` | 实际绑定及按 UID 的在途请求；停止排空期间附带 `draining` |
 | `POST /v1/samples`、`GET /v1/samples/ns/svc/R` | 当前绑定的样本摄入与封存证据 |
 | `GET /v1/decisions?after=S&limit=N` | 决策分页及压缩水位 |
 | `GET /v1/decisions/watch?after=S` | NDJSON 决策流，掉出保留段时发出 RESET 水位 |
@@ -82,4 +84,4 @@ go test -race -count=1 ./...
 go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics
 ```
 
-故障边界由 `clock.Manual`、`fault.Source` 和 `fault.Plane` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、观察窗回放和 apply 回执丢失后的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。
+故障边界由 `clock.Manual`、`fault.Source` 和 `fault.Plane` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、计划内停止的有界代理排空与停止后切流闸止、观察窗回放和 apply 回执丢失后的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。
