@@ -1,8 +1,10 @@
 package metrics
 
 import (
+	"cmp"
 	"fmt"
 	"maps"
+	"slices"
 	"sort"
 	"strconv"
 	"sync"
@@ -37,6 +39,11 @@ type Store struct {
 	path      string
 	doc       sampleDocument
 	uncertain error
+	// orders lists every stored sample per bucket in resourceVersion order. It
+	// is rebuilt from the persisted document on open and extended in lockstep
+	// with Add, so incremental polls can read only the tail of the bucket.
+	orders       map[string][]storedSample
+	accumulators map[string]*windowAccumulator
 }
 
 func Open(path string) (*Store, error) {
@@ -52,7 +59,30 @@ func Open(path string) (*Store, error) {
 	if err := store.validate(); err != nil {
 		return nil, err
 	}
+	store.rebuildIndexes()
 	return store, nil
+}
+
+// rebuildIndexes reconstructs the in-memory append order and resets window
+// accumulators. Persisted sealed windows are validated separately by
+// validate; only unsealed buckets need accumulators, which are created lazily
+// on the next Verdict poll.
+func (s *Store) rebuildIndexes() {
+	s.orders = make(map[string][]storedSample, len(s.doc.Buckets))
+	for key, bucket := range s.doc.Buckets {
+		// Sealed buckets accept no further samples and are served from the
+		// stored verdict, so they never need an append order or accumulator.
+		if _, sealed := s.doc.Windows[key]; sealed {
+			continue
+		}
+		order := make([]storedSample, 0, len(bucket))
+		for _, stored := range bucket {
+			order = append(order, stored)
+		}
+		slices.SortFunc(order, func(a, b storedSample) int { return cmp.Compare(a.Version, b.Version) })
+		s.orders[key] = order
+	}
+	s.accumulators = make(map[string]*windowAccumulator)
 }
 
 func bucketKey(service v1.Service, version uint64) string {
@@ -143,6 +173,7 @@ func (s *Store) Add(sample v1.Sample) (bool, error) {
 	if err := s.commit(next); err != nil {
 		return false, err
 	}
+	s.orders[key] = append(s.orders[key], storedSample{Version: next.Version, Sample: sample})
 	return true, nil
 }
 
@@ -159,6 +190,15 @@ func materialize(bucket map[string]storedSample, through uint64) []v1.Sample {
 func (s *Store) Verdict(key v1.WindowKey, policy v1.WindowPolicy, now time.Time) (v1.WindowVerdict, error) {
 	key.Start, key.End = key.Start.UTC(), key.End.UTC()
 	now = now.UTC()
+	if err := key.Validate(); err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	if err := policy.Validate(); err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	if policy.Duration() != key.End.Sub(key.Start) {
+		return v1.WindowVerdict{}, v1.Invalid("window and policy durations disagree")
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.uncertain != nil {
@@ -171,9 +211,32 @@ func (s *Store) Verdict(key v1.WindowKey, policy v1.WindowPolicy, now time.Time)
 		}
 		return sealed.Verdict, nil
 	}
-	verdict, err := Evaluate(key, policy, s.doc.Version, materialize(s.doc.Buckets[bucket], s.doc.Version), now)
+	accumulator := s.accumulators[bucket]
+	if accumulator == nil || accumulator.key != key || accumulator.policy != policy {
+		// First poll for this window, or the controller opened a fresh window
+		// for the same binding: rebuild from the complete inventory once.
+		accumulator = newWindowAccumulator(key, policy)
+		if _, err := accumulator.absorb(s.orders[bucket]); err != nil {
+			return v1.WindowVerdict{}, err
+		}
+		s.accumulators[bucket] = accumulator
+	} else if _, err := accumulator.absorb(s.orders[bucket]); err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	verdict, err := accumulator.verdict(s.doc.Version, now)
 	if err != nil || verdict.Result == v1.Pending {
 		return verdict, err
+	}
+	// Sealing is irreversible: reconstruct the verdict from the raw samples
+	// with the full evaluator so an incremental state can never seal a result
+	// that full evaluation would not have produced.
+	full, err := Evaluate(key, policy, s.doc.Version, materialize(s.doc.Buckets[bucket], s.doc.Version), now)
+	if err != nil {
+		return v1.WindowVerdict{}, err
+	}
+	if full != verdict {
+		delete(s.accumulators, bucket)
+		return v1.WindowVerdict{}, v1.Invalid("incremental window diverged from full evaluation")
 	}
 	next := s.doc
 	next.Windows = maps.Clone(next.Windows)
@@ -181,6 +244,10 @@ func (s *Store) Verdict(key v1.WindowKey, policy v1.WindowPolicy, now time.Time)
 	if err := s.commit(next); err != nil {
 		return v1.WindowVerdict{}, err
 	}
+	// The binding is sealed; its accumulator and order tail are no longer
+	// needed, and Add rejects any further samples for this bucket.
+	delete(s.accumulators, bucket)
+	delete(s.orders, bucket)
 	return verdict, nil
 }
 

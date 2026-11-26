@@ -28,34 +28,18 @@ func Evaluate(key v1.WindowKey, policy v1.WindowPolicy, version uint64, all []v1
 		APIVersion: v1.Version, Key: key, SampleVersion: version, Result: v1.Pending, Reason: "WindowOpen",
 	}
 	for _, sample := range all {
-		if sample.Service != key.Service || sample.BindingVersion != key.BindingVersion ||
-			sample.At.Before(key.Start) || !sample.At.Before(key.End) {
-			continue
-		}
-		if err := sample.Validate(); err != nil {
+		accepted, normalized, err := considerSample(key, seen, sample)
+		if err != nil {
 			return v1.WindowVerdict{}, err
 		}
-		sample.At = sample.At.UTC()
-		if previous, duplicate := seen[sample.ID]; duplicate {
-			if previous != sample {
-				return v1.WindowVerdict{}, fmt.Errorf("%w: sample id %s has distinct values", v1.ErrConflict, sample.ID)
-			}
+		if !accepted {
 			continue
 		}
 		if len(selected) >= MaxBucket {
 			return v1.WindowVerdict{}, v1.Invalid("window sample limit")
 		}
-		selected = append(selected, sample)
-		seen[sample.ID] = sample
-		measurement := &result.Stable
-		if sample.Role == v1.CandidateRole {
-			measurement = &result.Candidate
-		}
-		measurement.Count++
-		if sample.Failed {
-			measurement.Failed++
-		}
-		measurement.TotalLatencyMS += sample.LatencyMS
+		selected = append(selected, normalized)
+		applyMeasurement(&result, normalized)
 	}
 	slices.SortFunc(selected, func(a, b v1.Sample) int { return cmp.Compare(a.ID, b.ID) })
 	digest, err := v1.Digest(selected)
@@ -72,6 +56,41 @@ func Evaluate(key v1.WindowKey, policy v1.WindowPolicy, version uint64, all []v1
 	}
 	result.Result, result.Reason = compare(result.Stable, result.Candidate, policy)
 	return result, nil
+}
+
+// considerSample applies the exact per-record window rules shared by full and
+// incremental evaluation: the half-open [start,end) boundary, identity
+// filtering, validation, UTC normalization, and duplicate/conflict detection.
+// accepted is false when the sample falls outside the window or repeats an
+// already-seen identical id. A repeated id with distinct values is a conflict.
+func considerSample(key v1.WindowKey, seen map[string]v1.Sample, sample v1.Sample) (accepted bool, normalized v1.Sample, err error) {
+	if sample.Service != key.Service || sample.BindingVersion != key.BindingVersion ||
+		sample.At.Before(key.Start) || !sample.At.Before(key.End) {
+		return false, v1.Sample{}, nil
+	}
+	if err := sample.Validate(); err != nil {
+		return false, v1.Sample{}, err
+	}
+	sample.At = sample.At.UTC()
+	if previous, duplicate := seen[sample.ID]; duplicate {
+		if previous != sample {
+			return false, v1.Sample{}, fmt.Errorf("%w: sample id %s has distinct values", v1.ErrConflict, sample.ID)
+		}
+		return false, v1.Sample{}, nil
+	}
+	return true, sample, nil
+}
+
+func applyMeasurement(result *v1.WindowVerdict, sample v1.Sample) {
+	measurement := &result.Stable
+	if sample.Role == v1.CandidateRole {
+		measurement = &result.Candidate
+	}
+	measurement.Count++
+	if sample.Failed {
+		measurement.Failed++
+	}
+	measurement.TotalLatencyMS += sample.LatencyMS
 }
 
 func compare(stable, candidate v1.Measurement, policy v1.WindowPolicy) (string, string) {

@@ -79,7 +79,9 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 ```sh
 go test -count=1 ./...
 go test -race -count=1 ./...
-go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics
+go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow|FullWindowPoll|IncrementalWindowPoll|IncrementalIdlePoll)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics
 ```
+
+观察窗求值对每个未封存绑定维护纯内存的增量累加器，按样本 `resourceVersion` 顺序只吸收上一轮轮询之后的新增尾部，复用已累计的测量值与样本集。半开 `[start,end)` 边界、绑定身份、重复样本、同 id 冲突和迟到样本全部走与全量 `Evaluate` 共享的逐条谓词；窗口封存时仍用原始样本全量复算并逐字段比对，二者不一致则拒绝封存。累加器不进入持久化文档，重启后由完整样本库存重建，因此封存与晋级结论在重启前后保持一致，证据文档也始终可用原始样本复算。`TestIncrementalHotspotUnderOneThird` 以一万样本、每轮八条新增断言每轮热点访问量低于全量扫描的三分之一。
 
 故障边界由 `clock.Manual`、`fault.Source` 和 `fault.Plane` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、观察窗回放和 apply 回执丢失后的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。
