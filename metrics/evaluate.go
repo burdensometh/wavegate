@@ -10,8 +10,11 @@ import (
 	"wavegate/v1"
 )
 
-// Evaluate uses [start,end) and the exact live binding identity. Once time has
-// elapsed, insufficient samples keep the same window open to late arrivals.
+// Evaluate uses [start,end) and the exact live binding identity. Samples that
+// arrive after end but carry an in-window timestamp still count: the policy's
+// bounded grace period delays the verdict so one-sided windows can complete.
+// Before the deadline a complete pair is judged by the normal thresholds; at
+// the deadline it is withdrawn safely with an explicit insufficiency reason.
 func Evaluate(key v1.WindowKey, policy v1.WindowPolicy, version uint64, all []v1.Sample, now time.Time) (v1.WindowVerdict, error) {
 	if err := key.Validate(); err != nil {
 		return v1.WindowVerdict{}, err
@@ -67,7 +70,14 @@ func Evaluate(key v1.WindowKey, policy v1.WindowPolicy, version uint64, all []v1
 		return result, nil
 	}
 	if result.Candidate.Count < policy.MinSamples || result.Stable.Count < policy.MinSamples {
-		result.Reason = "InsufficientSamples"
+		// The wait for late samples is bounded by the policy grace period. The
+		// deadline is derived from the durable window key and policy, so a
+		// restart resumes the same cutoff instead of extending it.
+		if now.Before(key.End.Add(policy.Grace())) {
+			result.Reason = "AwaitingLateSamples"
+			return result, nil
+		}
+		result.Result, result.Reason = v1.Withdrawn, "InsufficientSamples"
 		return result, nil
 	}
 	result.Result, result.Reason = compare(result.Stable, result.Candidate, policy)
@@ -126,7 +136,13 @@ func CheckVerdict(verdict v1.WindowVerdict) error {
 			}
 		}
 	case v1.Pending:
-		if verdict.Reason == "WindowOpen" || verdict.Reason == "InsufficientSamples" {
+		if verdict.Reason == "WindowOpen" || verdict.Reason == "AwaitingLateSamples" {
+			return nil
+		}
+	case v1.Withdrawn:
+		// Withdrawal is only ever the bounded-grace outcome for a window that
+		// never received both sides, so it is distinct from a metric failure.
+		if verdict.Reason == "InsufficientSamples" {
 			return nil
 		}
 	}

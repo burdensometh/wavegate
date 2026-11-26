@@ -71,8 +71,8 @@ func (r ReleaseSpec) Validate() error {
 }
 
 func (p WindowPolicy) Validate() error {
-	if p.Seconds < 1 || p.Seconds > 3600 || p.MinSamples < 1 || p.MinSamples > 10000 {
-		return Invalid("window duration or sample minimum")
+	if p.Seconds < 1 || p.Seconds > 3600 || p.GraceSeconds < 0 || p.GraceSeconds > 3600 || p.MinSamples < 1 || p.MinSamples > 10000 {
+		return Invalid("window duration, grace period or sample minimum")
 	}
 	if p.MaxErrorBPS < 0 || p.MaxErrorBPS > 10000 || p.MaxErrorDeltaBPS < 0 || p.MaxErrorDeltaBPS > 10000 {
 		return Invalid("window error bounds")
@@ -84,6 +84,10 @@ func (p WindowPolicy) Validate() error {
 }
 
 func (p WindowPolicy) Duration() time.Duration { return time.Duration(p.Seconds) * time.Second }
+
+// Grace is the bounded late-sample wait after a window closes. Samples are
+// still attributed to [start,end); the grace only delays the verdict.
+func (p WindowPolicy) Grace() time.Duration { return time.Duration(p.GraceSeconds) * time.Second }
 
 func (r ReplicaObservation) Validate() error {
 	if err := CheckVersion(r.APIVersion); err != nil {

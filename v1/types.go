@@ -30,6 +30,7 @@ func (r ReleaseSpec) Key() string { return r.Service.Namespace + "/" + r.Name }
 
 type WindowPolicy struct {
 	Seconds               int   `json:"seconds"`
+	GraceSeconds          int   `json:"graceSeconds,omitempty"`
 	MinSamples            int   `json:"minSamples"`
 	MaxErrorBPS           int   `json:"maxErrorBps"`
 	MaxErrorDeltaBPS      int   `json:"maxErrorDeltaBps"`
@@ -139,9 +140,10 @@ type WindowVerdict struct {
 }
 
 const (
-	Pass    = "Pass"
-	Fail    = "Fail"
-	Pending = "Pending"
+	Pass      = "Pass"
+	Fail      = "Fail"
+	Pending   = "Pending"
+	Withdrawn = "Withdrawn"
 )
 
 type NamespaceReservation struct {

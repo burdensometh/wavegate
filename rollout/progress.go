@@ -14,7 +14,8 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 	if spec.Abort || state.Status.Phase == v1.RollingBack {
 		return e.rollback(now, state, live, snapshot, "AbortRequested")
 	}
-	if state.Status.Verdict != nil && state.Status.Verdict.Result == v1.Fail {
+	if state.Status.Verdict != nil &&
+		(state.Status.Verdict.Result == v1.Fail || state.Status.Verdict.Result == v1.Withdrawn) {
 		return e.rollback(now, state, live, snapshot, state.Status.Verdict.Reason)
 	}
 	if snapshot.Generation > e.generations[spec.UID] {
