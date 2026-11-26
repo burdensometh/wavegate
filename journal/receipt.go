@@ -27,14 +27,21 @@ func receiptDigest(receipt Receipt) (string, error) {
 }
 
 func (s *Store) Receipt(uid string, at time.Time) (Receipt, error) {
+	receipt, _, err := s.receipt(uid, at)
+	return receipt, err
+}
+
+// receipt builds the release receipt from the per-release retained index and
+// reports how many retained decision records were examined to produce it.
+func (s *Store) receipt(uid string, at time.Time) (Receipt, int, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if s.uncertain != nil {
-		return Receipt{}, s.uncertain
+		return Receipt{}, 0, s.uncertain
 	}
 	current, exists := s.states[uid]
 	if !exists {
-		return Receipt{}, v1.ErrNotFound
+		return Receipt{}, 0, v1.ErrNotFound
 	}
 	base := s.doc.Checkpoint
 	result := Receipt{
@@ -45,17 +52,21 @@ func (s *Store) Receipt(uid string, at time.Time) (Receipt, error) {
 	if record, found := base.States[uid]; found {
 		result.Base = &record
 	}
-	for _, record := range s.doc.Records {
-		if record.State.Spec.UID == uid {
-			result.Decisions = append(result.Decisions, record)
-		}
+	accessed := 0
+	for _, sequence := range s.retained[uid] {
+		result.Decisions = append(result.Decisions, s.doc.Records[int(sequence-base.Sequence)-1])
+		accessed++
 	}
 	digest, err := receiptDigest(result)
 	if err != nil {
-		return Receipt{}, err
+		return Receipt{}, 0, err
 	}
 	result.Digest = digest
-	return v1.Copy(result)
+	copied, err := v1.Copy(result)
+	if err != nil {
+		return Receipt{}, 0, err
+	}
+	return copied, accessed, nil
 }
 
 func VerifyReceipt(receipt Receipt) error {

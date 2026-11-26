@@ -40,7 +40,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 - `rollout` 推进固定阶梯。规范创建后保持发布身份、修订版、阶梯和阈值，更新请求携带上一次返回的资源版本并可调整 `paused` 或置位 `abort`。一条发布可在初始稳定绑定建立后保持等待；双组可用才应用正权重。暂停、watch 中断或绑定重配会重新建立进阶所依赖的观察窗。
 - `traffic` 以操作 ID、绑定资源版本及所有者执行原子比较并交换。候选权重确定角色，角色内轮询当前规则中的就绪端点。已选角色无可用端点时返回 503。晋级后新请求走新稳定版，旧稳定端点保留到最短排空时间和在途请求均结束。
 - `metrics` 使用绑定版本隔离样本。每阶比较同一半开区间 `[start,end)` 的两组错误率和均值延迟。窗口到期后，两组达到样本下限才会封存判定。封存写入样本水位和摘要，可重新计算。代理直接记录上游结果，也接收显式 v1 样本。
-- `journal` 先写入 traffic intent，再执行原子 apply，最后串接提交决策、发布 status 并更新配额视图。重启依据应用端实际操作 ID 对账。决策哈希和检查点用于一致性校验，收据包含保留决策与检查点上最近的该发布记录。
+- `journal` 先写入 traffic intent，再执行原子 apply，最后串接提交决策、发布 status 并更新配额视图。重启依据应用端实际操作 ID 对账。决策哈希和检查点用于一致性校验，收据包含保留决策与检查点上最近的该发布记录。保留段按发布维护序列索引，单一发布收据只读取该发布的保留记录，不扫描其他发布的决策；索引由检查点加保留段重建，重启前后收据一致。
 - `quota` 从日志恢复已授予预留。每个服务同一时间只允许一个活跃预留；命名空间同时限制发布数和候选就绪单位。晋级或回退完成时在同一个决策中清除预留。
 
 | 持久文件 | 权威内容 |
@@ -79,7 +79,7 @@ bin/wavegate inspect-state -state-directory var/run-01/state
 ```sh
 go test -count=1 ./...
 go test -race -count=1 ./...
-go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics
+go test -run '^$' -bench 'Benchmark(WatchRelist|RenderRule|AggregateWindow|ReceiptSparseRelease)$' -benchtime=250ms -count=3 -benchmem ./discovery ./traffic ./metrics ./journal
 ```
 
 故障边界由 `clock.Manual`、`fault.Source` 和 `fault.Plane` 提供。原生测试覆盖端点事件暂缓、库存变化后旧 UID 拒绝服务、断开 watch 与过期游标、在途排空、观察窗回放和 apply 回执丢失后的进程中断。构造器支持为测试替换边界，日常启动由 `wavegate serve` 使用真实时钟和原生实现。

@@ -26,11 +26,16 @@ type document struct {
 }
 
 type Store struct {
-	mu        sync.RWMutex
-	path      string
-	retain    int
-	doc       document
-	states    map[string]v1.DecisionRecord
+	mu     sync.RWMutex
+	path   string
+	retain int
+	doc    document
+	states map[string]v1.DecisionRecord
+	// retained indexes doc.Records by release UID as ascending sequences, so a
+	// single-release receipt reads only its own records instead of scanning
+	// every retained decision. It is derived state: replay rebuilds it and
+	// Commit keeps it in sync with compaction.
+	retained  map[string][]uint64
 	sequence  uint64
 	head      string
 	changed   chan struct{}
@@ -47,7 +52,8 @@ func Open(path string, retain int) (*Store, error) {
 			Checkpoint: checkpoint{States: make(map[string]v1.DecisionRecord)},
 			Records:    []v1.DecisionRecord{},
 		},
-		changed: make(chan struct{}),
+		retained: make(map[string][]uint64),
+		changed:  make(chan struct{}),
 	}
 	emptyDigest, err := digestCheckpoint(store.doc.Checkpoint)
 	if err != nil {
@@ -119,6 +125,7 @@ func (s *Store) replay() error {
 			return err
 		}
 		s.states[record.State.Spec.UID] = record
+		s.retained[record.State.Spec.UID] = append(s.retained[record.State.Spec.UID], record.Sequence)
 		s.sequence, s.head = record.Sequence, record.Digest
 	}
 	return nil
@@ -188,12 +195,14 @@ func (s *Store) Commit(expected uint64, at time.Time, kind, reason string, state
 	}
 	next := s.doc
 	next.Records = append(slices.Clone(next.Records), record)
+	var compacted []v1.DecisionRecord
 	if len(next.Records) > s.retain {
 		count := len(next.Records) - s.retain
 		next.Checkpoint, err = fold(next.Checkpoint, next.Records[:count])
 		if err != nil {
 			return v1.DecisionRecord{}, err
 		}
+		compacted = next.Records[:count]
 		next.Records = slices.Clone(next.Records[count:])
 	}
 	renamed, err := statefile.Write(s.path, next)
@@ -207,6 +216,15 @@ func (s *Store) Commit(expected uint64, at time.Time, kind, reason string, state
 	s.doc = next
 	s.sequence, s.head = record.Sequence, record.Digest
 	s.states[state.Spec.UID] = record
+	for _, dropped := range compacted {
+		uid := dropped.State.Spec.UID
+		if kept := s.retained[uid]; len(kept) <= 1 {
+			delete(s.retained, uid)
+		} else {
+			s.retained[uid] = kept[1:]
+		}
+	}
+	s.retained[state.Spec.UID] = append(s.retained[state.Spec.UID], record.Sequence)
 	s.signal()
 	return v1.Copy(record)
 }
