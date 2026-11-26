@@ -96,7 +96,7 @@ func validateCatalog(doc catalogDocument) error {
 }
 
 func validateEvent(event v1.EndpointEvent) error {
-	if err := v1.CheckVersion(event.APIVersion); err != nil {
+	if err := v1.CheckEndpointVersion(event.APIVersion); err != nil {
 		return err
 	}
 	if event.Type != v1.Added && event.Type != v1.Modified && event.Type != v1.Deleted {
@@ -140,6 +140,7 @@ func (c *Catalog) Put(endpoint v1.ReplicaObservation) (v1.ReplicaObservation, er
 	if err := endpoint.Validate(); err != nil {
 		return v1.ReplicaObservation{}, err
 	}
+	endpoint = endpoint.Normalized()
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.uncertain != nil {
@@ -154,6 +155,13 @@ func (c *Catalog) Put(endpoint v1.ReplicaObservation) (v1.ReplicaObservation, er
 	}
 	if _, seen := c.doc.UIDKeys[endpoint.UID]; seen && current.UID != endpoint.UID {
 		return v1.ReplicaObservation{}, fmt.Errorf("%w: endpoint UID already used", v1.ErrConflict)
+	}
+	// A terminating node at a key must not clobber a different UID that already
+	// occupies it. A terminating observation represents its own UID winding
+	// down; once a newer UID owns the node/name slot, the old one's termination
+	// is informational and must not take the slot back.
+	if exists && current.UID != endpoint.UID && endpoint.Terminating() {
+		return v1.ReplicaObservation{}, fmt.Errorf("%w: terminating endpoint cannot replace another UID", v1.ErrConflict)
 	}
 	if exists && current == endpoint {
 		return current, nil
@@ -182,13 +190,18 @@ func (c *Catalog) Delete(service v1.Service, node, name, uid string, version uin
 	if err != nil {
 		return v1.EndpointEvent{}, err
 	}
-	return v1.EndpointEvent{APIVersion: v1.Version, Type: v1.Deleted, ResourceVersion: deleted.ResourceVersion, Object: deleted}, nil
+	eventVersion := deleted.APIVersion
+	if eventVersion == "" {
+		eventVersion = v1.Version
+	}
+	return v1.EndpointEvent{APIVersion: eventVersion, Type: v1.Deleted, ResourceVersion: deleted.ResourceVersion, Object: deleted}, nil
 }
 
 func (c *Catalog) commit(kind string, endpoint v1.ReplicaObservation) (v1.ReplicaObservation, error) {
 	if c.doc.Version == ^uint64(0) {
 		return v1.ReplicaObservation{}, v1.Invalid("endpoint version exhausted")
 	}
+	endpoint = endpoint.Normalized()
 	next := catalogDocument{
 		APIVersion: v1.Version, Version: c.doc.Version + 1,
 		Items:   make(map[string]v1.ReplicaObservation, len(c.doc.Items)+1),
@@ -208,8 +221,15 @@ func (c *Catalog) commit(kind string, endpoint v1.ReplicaObservation) (v1.Replic
 	if len(history) >= c.limit {
 		history = history[len(history)-c.limit+1:]
 	}
+	// The event carries the observation's own resource version so an explicit
+	// v2 phase reaches watch readers intact. A v1 observation keeps its v1
+	// event shape and replay result.
+	eventVersion := endpoint.APIVersion
+	if eventVersion == "" {
+		eventVersion = v1.Version
+	}
 	next.History = append(slices.Clone(history), v1.EndpointEvent{
-		APIVersion: v1.Version, Type: kind, ResourceVersion: next.Version, Object: endpoint,
+		APIVersion: eventVersion, Type: kind, ResourceVersion: next.Version, Object: endpoint,
 	})
 	renamed, err := statefile.Write(c.path, next)
 	if err != nil {
@@ -237,7 +257,7 @@ func (c *Catalog) WithResolvedTargets(service v1.Service, revision string, targe
 	var live []v1.ReplicaObservation
 	for _, target := range targets {
 		endpoint, exists := c.doc.Items[service.String()+"/"+target.Key()]
-		if exists && endpoint.Ready && endpoint.UID == target.UID && endpoint.Revision == revision {
+		if exists && endpoint.Serving() && endpoint.UID == target.UID && endpoint.Revision == revision {
 			live = append(live, endpoint)
 		}
 	}

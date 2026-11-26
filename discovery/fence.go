@@ -23,7 +23,7 @@ func (c *Catalog) WithReadyRule(rule v1.Rule, mutate func() error) error {
 	}{{rule.Stable, rule.StableTargets}, {rule.Candidate, rule.CandidateTargets}} {
 		for _, target := range group.targets {
 			item, found := c.doc.Items[rule.Service.String()+"/"+target.Key()]
-			if !found || item.UID != target.UID || item.Revision != group.revision || !item.Ready {
+			if !found || item.UID != target.UID || item.Revision != group.revision || !item.Serving() {
 				return fmt.Errorf("%w: target %s no longer matches the rule", v1.ErrExpired, target.Key())
 			}
 		}

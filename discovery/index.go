@@ -53,7 +53,7 @@ func (i *Index) signal() {
 }
 
 func (i *Index) Replace(list v1.EndpointList) error {
-	if err := v1.CheckVersion(list.APIVersion); err != nil {
+	if err := v1.CheckEndpointVersion(list.APIVersion); err != nil {
 		return err
 	}
 	next := make(map[v1.Service]map[string]v1.ReplicaObservation)
@@ -64,6 +64,7 @@ func (i *Index) Replace(list v1.EndpointList) error {
 		if endpoint.ResourceVersion > list.ResourceVersion || endpoint.ResourceVersion == 0 {
 			return v1.Invalid("list item resource version")
 		}
+		endpoint = endpoint.Normalized()
 		group := next[endpoint.Service]
 		if group == nil {
 			group = make(map[string]v1.ReplicaObservation)
@@ -99,7 +100,7 @@ func (i *Index) Apply(event v1.EndpointEvent) error {
 	if event.ResourceVersion != i.version+1 {
 		return fmt.Errorf("%w: endpoint watch sequence gap", v1.ErrExpired)
 	}
-	endpoint := event.Object
+	endpoint := event.Object.Normalized()
 	group := i.items[endpoint.Service]
 	old, exists := group[endpoint.Key()]
 	switch event.Type {
@@ -114,6 +115,13 @@ func (i *Index) Apply(event v1.EndpointEvent) error {
 	case v1.Added, v1.Modified:
 		if exists != (event.Type == v1.Modified) {
 			return fmt.Errorf("%w: endpoint event does not match inventory", v1.ErrExpired)
+		}
+		// Each UID only adopts a strictly newer observation, and a terminating
+		// observation never displaces a different UID at the same key. This
+		// mirrors the catalog so a watch reader reaches the same conclusion as
+		// the persisted inventory.
+		if exists && old.UID != endpoint.UID && endpoint.Terminating() {
+			return fmt.Errorf("%w: terminating endpoint cannot replace another UID", v1.ErrExpired)
 		}
 		if group == nil {
 			group = make(map[string]v1.ReplicaObservation)
@@ -141,7 +149,7 @@ func (i *Index) Snapshot(service v1.Service) Snapshot {
 	defer i.mu.RUnlock()
 	snapshot := Snapshot{Version: i.version, Generation: i.generation, Synced: i.synced}
 	for _, endpoint := range i.items[service] {
-		if endpoint.Ready {
+		if endpoint.Serving() {
 			snapshot.Ready = append(snapshot.Ready, endpoint)
 		}
 	}

@@ -17,6 +17,8 @@ func Render(spec v1.ReleaseSpec, snapshot discovery.Snapshot, stable, candidate 
 		if endpoint.Service != spec.Service {
 			continue
 		}
+		// snapshot.Ready already holds only endpoints whose readiness phase
+		// permits new traffic; unknown or terminating endpoints never appear.
 		target := v1.Target{Node: endpoint.Node, Name: endpoint.Name, UID: endpoint.UID}
 		switch endpoint.Revision {
 		case stable:

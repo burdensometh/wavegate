@@ -86,7 +86,7 @@ func (p WindowPolicy) Validate() error {
 func (p WindowPolicy) Duration() time.Duration { return time.Duration(p.Seconds) * time.Second }
 
 func (r ReplicaObservation) Validate() error {
-	if err := CheckVersion(r.APIVersion); err != nil {
+	if err := CheckEndpointVersion(r.APIVersion); err != nil {
 		return err
 	}
 	if err := r.Service.Validate(); err != nil {
@@ -94,6 +94,22 @@ func (r ReplicaObservation) Validate() error {
 	}
 	if !ValidLabel(r.Node) || !ValidLabel(r.Name) || !ValidToken(r.UID) || !ValidToken(r.Revision) {
 		return Invalid("endpoint identity or revision")
+	}
+	switch r.APIVersion {
+	case Version:
+		// The legacy shape leaves Phase optional. When a newer source does
+		// carry a phase through the v1 document it must still be a known one;
+		// the catalog normalizes Ready to agree with it on write.
+		if r.Phase != "" && !KnownReadiness(r.Phase) {
+			return Invalid("endpoint readiness phase")
+		}
+	case VersionV2:
+		// The phase is authoritative for v2. Ready is derived from it when the
+		// catalog persists or replays the observation, so a client need not
+		// keep the legacy boolean in sync.
+		if !KnownReadiness(r.Phase) {
+			return Invalid("v2 endpoint requires an Unknown, Serving or Terminating phase")
+		}
 	}
 	address, err := url.Parse(r.Address)
 	if err != nil || address.Scheme != "http" || address.User != nil ||

@@ -36,6 +36,12 @@ type WindowPolicy struct {
 	MaxMeanLatencyDeltaMS int64 `json:"maxMeanLatencyDeltaMs"`
 }
 
+// ReplicaObservation describes one endpoint. APIVersion selects how readiness
+// is expressed: wavegate.io/v1 keeps the historical Ready boolean, while
+// wavegate.io/v2 (and any observation that explicitly carries Phase) uses the
+// readiness phase. Phase is authoritative whenever it is non-empty so that a
+// newer source can be observed without rewriting the older wire shape. See
+// readiness.go for the phase helpers.
 type ReplicaObservation struct {
 	APIVersion      string  `json:"apiVersion"`
 	Service         Service `json:"service"`
@@ -45,6 +51,7 @@ type ReplicaObservation struct {
 	Revision        string  `json:"revision"`
 	Address         string  `json:"address"`
 	Ready           bool    `json:"ready"`
+	Phase           string  `json:"phase,omitempty"`
 	ResourceVersion uint64  `json:"resourceVersion"`
 }
 
