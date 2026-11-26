@@ -118,7 +118,7 @@ func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
 		state.Status.ObservedVersion = spec.ResourceVersion
 		return e.commit(now, state, "DesiredObserved", "ResourceVersionChanged", state.Reservation)
 	}
-	binding, exists, err := e.plane.Observe(spec.Service)
+	binding, _, err := e.plane.Observe(spec.Service)
 	if err != nil {
 		return err
 	}
@@ -129,12 +129,12 @@ func (e *Engine) Reconcile(ctx context.Context, namespace, name string) error {
 	if v1.Terminal(state.Status.Phase) {
 		return e.terminal(now, state, binding, snapshot)
 	}
+	fact := ReconcileBinding(state, binding)
 	if state.Binding != nil {
-		if !exists || binding.ResourceVersion != state.Binding.ResourceVersion || binding.OwnerUID != spec.UID ||
-			binding.Operation != state.Binding.Operation || !traffic.SameRule(binding.Rule, state.Binding.Rule) {
+		if fact != BindingCurrent {
 			return fmt.Errorf("%w: live binding diverged from committed decision for %s", v1.ErrConflict, spec.Service)
 		}
-	} else if exists && binding.OwnerUID == spec.UID {
+	} else if fact == BindingConflict {
 		return fmt.Errorf("%w: traffic owner has no committed or prepared decision for %s", v1.ErrConflict, spec.Service)
 	}
 	return e.advance(now, state, binding, snapshot)

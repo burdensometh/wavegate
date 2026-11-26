@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"wavegate/rollout"
-	"wavegate/traffic"
 	"wavegate/v1"
 )
 
@@ -113,7 +112,7 @@ func (a *App) inspectRecovery() (RecoveryReport, error) {
 	for _, live := range bindings {
 		state, exists := byUID[live.OwnerUID]
 		if !exists || state.Spec.Service != live.Rule.Service ||
-			(!sameBinding(state.Binding, live) && !matchesIntent(state, live)) {
+			(!rollout.SameBinding(state.Binding, live) && !rollout.MatchesIntent(state, live)) {
 			return RecoveryReport{}, recoveryError(live.Rule.Service, "live binding has no durable decision or apply intent")
 		}
 	}
@@ -136,33 +135,24 @@ func checkPublished(view rollout.ReleaseView, status v1.ReleaseStatus) error {
 	return nil
 }
 
-func sameBinding(persisted *v1.TrafficBinding, live v1.TrafficBinding) bool {
-	return persisted != nil && persisted.ResourceVersion == live.ResourceVersion && persisted.Operation == live.Operation &&
-		persisted.OwnerUID == live.OwnerUID && persisted.AppliedAt.Equal(live.AppliedAt) && traffic.SameRule(persisted.Rule, live.Rule)
-}
-
-func matchesIntent(state v1.ReleaseState, live v1.TrafficBinding) bool {
-	intent := state.Intent
-	return intent != nil && live.OwnerUID == state.Spec.UID && live.Operation == intent.Operation &&
-		live.ResourceVersion > intent.ExpectedVersion && traffic.SameRule(live.Rule, intent.Rule)
-}
-
 func checkReleaseBinding(state v1.ReleaseState, live v1.TrafficBinding) (*PendingCommit, error) {
 	spec, status := state.Spec, state.Status
 	intent := state.Intent
 	active := !v1.Terminal(status.Phase)
-	if active && state.Binding != nil && !sameBinding(state.Binding, live) && !matchesIntent(state, live) {
+	fact := rollout.ReconcileBinding(state, live)
+	diverged := fact == rollout.BindingForeign || fact == rollout.BindingConflict
+	if active && state.Binding != nil && diverged {
 		return nil, recoveryError(spec.Service, "active release has lost its recorded binding")
 	}
 	if intent == nil {
 		return nil, nil
 	}
-	matched := matchesIntent(state, live)
-	if active && !matched && intent.ExpectedVersion != live.ResourceVersion {
+	applied := fact == rollout.BindingReceipt
+	if active && !applied && diverged {
 		return nil, recoveryError(spec.Service, "prepared intent has lost its traffic precondition")
 	}
 	return &PendingCommit{
 		Service: spec.Service, ReleaseUID: spec.UID, Operation: intent.Operation, Kind: intent.Kind,
-		ExpectedVersion: intent.ExpectedVersion, LiveVersion: live.ResourceVersion, Applied: matched,
+		ExpectedVersion: intent.ExpectedVersion, LiveVersion: live.ResourceVersion, Applied: applied,
 	}, nil
 }

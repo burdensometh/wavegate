@@ -31,12 +31,12 @@ func (e *Engine) prepare(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 func (e *Engine) execute(ctx context.Context, now time.Time, state v1.ReleaseState, live v1.TrafficBinding, snapshot discovery.Snapshot) error {
 	intent := *state.Intent
 	if live.Operation == intent.Operation {
-		if live.OwnerUID != state.Spec.UID || !traffic.SameRule(live.Rule, intent.Rule) || live.ResourceVersion <= intent.ExpectedVersion {
+		if !MatchesIntent(state, live) {
 			return fmt.Errorf("%w: live receipt does not match prepared traffic operation", v1.ErrConflict)
 		}
 		return e.complete(now, state, live)
 	}
-	if live.ResourceVersion != intent.ExpectedVersion {
+	if ReconcileBinding(state, live) != BindingPrepared {
 		if state.Status.Phase == v1.Aborted || state.Status.Phase == v1.Promoted {
 			return e.cancel(now, state, "BindingOwnerChanged")
 		}
@@ -95,8 +95,7 @@ func (e *Engine) complete(now time.Time, state v1.ReleaseState, binding v1.Traff
 	if err := traffic.ValidateBinding(binding); err != nil {
 		return err
 	}
-	if binding.Operation != intent.Operation || binding.OwnerUID != state.Spec.UID ||
-		binding.ResourceVersion <= intent.ExpectedVersion || !traffic.SameRule(binding.Rule, intent.Rule) {
+	if !MatchesIntent(state, binding) {
 		return fmt.Errorf("%w: apply receipt does not match prepared traffic operation", v1.ErrConflict)
 	}
 	previous := state.Reservation
@@ -155,11 +154,14 @@ func (e *Engine) rollback(now time.Time, state v1.ReleaseState, live v1.TrafficB
 }
 
 func (e *Engine) terminal(now time.Time, state v1.ReleaseState, live v1.TrafficBinding, snapshot discovery.Snapshot) error {
-	if state.Binding == nil || live.OwnerUID != state.Spec.UID {
+	if state.Binding == nil {
 		return nil
 	}
-	if live.ResourceVersion != state.Binding.ResourceVersion || live.Operation != state.Binding.Operation ||
-		!traffic.SameRule(live.Rule, state.Binding.Rule) {
+	if fact := ReconcileBinding(state, live); fact != BindingCurrent {
+		if fact == BindingForeign {
+			// A successor legitimately owns the service binding now.
+			return nil
+		}
 		return fmt.Errorf("%w: terminal binding diverged for %s", v1.ErrConflict, state.Spec.Service)
 	}
 	rule := live.Rule
