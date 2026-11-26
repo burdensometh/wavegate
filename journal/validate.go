@@ -166,13 +166,17 @@ func validateIntent(state v1.ReleaseState) error {
 			len(intent.Rule.StableTargets) >= spec.MinReady {
 			return nil
 		}
-	case v1.WeightStep, v1.RefreshStep:
+	case v1.WeightStep, v1.RefreshStep, v1.RefreshPaused:
 		if intent.Step >= 0 && intent.Step < len(spec.Steps) && intent.Rule.Stable == spec.Stable &&
 			intent.Rule.Candidate == spec.Candidate && intent.Rule.CandidateWeight == spec.Steps[intent.Step] &&
 			len(intent.Rule.CandidateTargets) >= spec.MinReady && !v1.Terminal(status.Phase) {
 			switch intent.Kind {
 			case v1.RefreshStep:
 				if intent.Step == status.Step {
+					return nil
+				}
+			case v1.RefreshPaused:
+				if intent.Step == status.Step && status.Phase == v1.Paused {
 					return nil
 				}
 			case v1.WeightStep:

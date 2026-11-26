@@ -48,14 +48,7 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 		return e.rollback(now, state, live, snapshot, "EndpointsBelowMinimum")
 	}
 	if spec.Paused {
-		if state.Status.Phase == v1.Paused {
-			return nil
-		}
-		state.Window, state.Status.Verdict = nil, nil
-		state.Status.Phase = v1.Paused
-		setCondition(&state.Status, now, "Progressing", false, "ManuallyPaused")
-		setCondition(&state.Status, now, "WindowReady", false, "WindowInvalidated")
-		return e.commit(now, state, "ReleasePaused", "ManuallyPaused", state.Reservation)
+		return e.maintainPaused(now, state, live, rule, ready)
 	}
 	if !ready {
 		reason := "CandidateBelowMinimum"
@@ -92,6 +85,31 @@ func (e *Engine) advance(now time.Time, state v1.ReleaseState, live v1.TrafficBi
 	}
 	e.keepDrain(now, live.Rule, &rule)
 	return e.prepare(now, state, live, v1.Promote, state.Status.Step, rule, "FinalWindowPassed")
+}
+
+// maintainPaused keeps a manually paused release serving its committed step
+// while the endpoint inventory changes. A recreated replica gets a fresh rule
+// with the same step and weight so the old UID is refused at the fence. No
+// observation window is opened while the release is paused.
+func (e *Engine) maintainPaused(now time.Time, state v1.ReleaseState, live v1.TrafficBinding, rule v1.Rule, ready bool) error {
+	if state.Status.Phase != v1.Paused {
+		state.Window, state.Status.Verdict = nil, nil
+		state.Status.Phase = v1.Paused
+		setCondition(&state.Status, now, "Progressing", false, "ManuallyPaused")
+		setCondition(&state.Status, now, "WindowReady", false, "WindowInvalidated")
+		if err := e.commit(now, state, "ReleasePaused", "ManuallyPaused", state.Reservation); err != nil {
+			return err
+		}
+	}
+	if !ready || live.Rule.CandidateWeight == 0 {
+		return nil
+	}
+	rule.CandidateWeight = live.Rule.CandidateWeight
+	e.keepDrain(now, live.Rule, &rule)
+	if traffic.SameRoutes(live.Rule, rule) {
+		return nil
+	}
+	return e.prepare(now, state, live, v1.RefreshPaused, state.Status.Step, rule, "PausedEndpointsRefreshed")
 }
 
 func (e *Engine) admit(now time.Time, state v1.ReleaseState, live v1.TrafficBinding, rule v1.Rule) error {

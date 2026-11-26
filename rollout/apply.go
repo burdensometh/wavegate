@@ -46,8 +46,8 @@ func (e *Engine) execute(ctx context.Context, now time.Time, state v1.ReleaseSta
 		return e.cancel(now, state, "AbortRequested")
 	}
 	needsReady := v1.ChangesCandidate(intent.Kind)
-	if needsReady && (state.Spec.Paused || !snapshot.Synced || snapshot.Version < intent.Rule.DiscoveryVersion ||
-		snapshot.Generation > e.generations[state.Spec.UID]) {
+	if needsReady && ((state.Spec.Paused && intent.Kind != v1.RefreshPaused) || !snapshot.Synced ||
+		snapshot.Version < intent.Rule.DiscoveryVersion || snapshot.Generation > e.generations[state.Spec.UID]) {
 		return e.cancel(now, state, "TrafficPreconditionsChanged")
 	}
 	var binding v1.TrafficBinding
@@ -116,6 +116,11 @@ func (e *Engine) complete(now time.Time, state v1.ReleaseState, binding v1.Traff
 		state.Window = &v1.WindowKey{Service: state.Spec.Service, BindingVersion: binding.ResourceVersion, Start: start, End: start.Add(state.Spec.Window.Duration())}
 		setCondition(&state.Status, now, "Progressing", true, "CandidateServing")
 		setCondition(&state.Status, now, "WindowReady", false, "WindowOpen")
+	case v1.RefreshPaused:
+		state.Status.Phase = v1.Paused
+		state.Window, state.Status.Verdict = nil, nil
+		setCondition(&state.Status, now, "Progressing", false, "PausedBindingRefreshed")
+		setCondition(&state.Status, now, "WindowReady", false, "WindowInvalidated")
 	case v1.RollBack:
 		state.Status.Phase = v1.Aborted
 		state.Reservation = nil

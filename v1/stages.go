@@ -8,18 +8,19 @@ const (
 	Aborted     = "Aborted"
 	Promoted    = "Promoted"
 
-	Initialize  = "Initialize"
-	WeightStep  = "WeightStep"
-	RefreshStep = "RefreshStep"
-	RollBack    = "RollBack"
-	Promote     = "Promote"
-	SyncStable  = "SyncStable"
+	Initialize    = "Initialize"
+	WeightStep    = "WeightStep"
+	RefreshStep   = "RefreshStep"
+	RefreshPaused = "RefreshPaused"
+	RollBack      = "RollBack"
+	Promote       = "Promote"
+	SyncStable    = "SyncStable"
 )
 
 func Terminal(phase string) bool { return phase == Aborted || phase == Promoted }
 
 func ChangesCandidate(kind string) bool {
-	return kind == WeightStep || kind == RefreshStep || kind == Promote
+	return kind == WeightStep || kind == RefreshStep || kind == RefreshPaused || kind == Promote
 }
 
 func KnownPhase(phase string) bool {
