@@ -118,8 +118,7 @@ func (s *Store) Add(sample v1.Sample) (bool, error) {
 		return false, s.uncertain
 	}
 	key := bucketKey(sample.Service, sample.BindingVersion)
-	bucket := s.doc.Buckets[key]
-	if previous, exists := bucket[sample.ID]; exists {
+	if previous, exists := s.storedLocked(key, sample.ID); exists {
 		if previous.Sample == sample {
 			return false, nil
 		}
@@ -128,6 +127,7 @@ func (s *Store) Add(sample v1.Sample) (bool, error) {
 	if _, exists := s.doc.Windows[key]; exists {
 		return false, fmt.Errorf("%w: sample belongs to a sealed binding", v1.ErrExpired)
 	}
+	bucket := s.doc.Buckets[key]
 	if len(bucket) >= MaxBucket || s.doc.Version == ^uint64(0) {
 		return false, v1.Invalid("sample inventory limit reached")
 	}
@@ -144,6 +144,42 @@ func (s *Store) Add(sample v1.Sample) (bool, error) {
 		return false, err
 	}
 	return true, nil
+}
+
+// storedLocked looks up a sample by its full identity (service, binding
+// version and id). Callers must hold s.mu.
+func (s *Store) storedLocked(key, id string) (storedSample, bool) {
+	stored, ok := s.doc.Buckets[key][id]
+	return stored, ok
+}
+
+// Replay resolves an idempotent resend of an explicit sample against durable
+// history without enforcing which traffic binding is currently live and
+// without advancing the sample watermark or touching sealed evidence.
+//
+// An exact resend of a previously ingested sample reports added=false with a
+// nil error. Reusing the same identity with different content reports
+// v1.ErrConflict. An identity that was never received reports v1.ErrNotFound;
+// callers use that to keep rejecting new samples aimed at a historical
+// binding.
+func (s *Store) Replay(sample v1.Sample) (bool, error) {
+	sample.At = sample.At.UTC()
+	if err := sample.Validate(); err != nil {
+		return false, err
+	}
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	if s.uncertain != nil {
+		return false, s.uncertain
+	}
+	previous, exists := s.storedLocked(bucketKey(sample.Service, sample.BindingVersion), sample.ID)
+	if !exists {
+		return false, fmt.Errorf("%w: sample identity was not received", v1.ErrNotFound)
+	}
+	if previous.Sample != sample {
+		return false, fmt.Errorf("%w: changed sample with same id", v1.ErrConflict)
+	}
+	return false, nil
 }
 
 func materialize(bucket map[string]storedSample, through uint64) []v1.Sample {

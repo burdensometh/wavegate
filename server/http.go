@@ -269,7 +269,19 @@ func (a *App) addSample(w http.ResponseWriter, r *http.Request) {
 	}
 	if !found || sample.BindingVersion != binding.ResourceVersion || binding.Rule.CandidateWeight == 0 ||
 		sample.At.Before(binding.AppliedAt) || sample.At.After(a.Clock.Now()) {
-		respondError(w, v1.Invalid("sample requires the current weighted binding and an elapsed timestamp"))
+		// The write may already be durably committed even though its receipt
+		// was lost and the binding has since stepped. Answer identical resends
+		// and identity conflicts from history; only an identity never received
+		// stays bound to the current weighted binding and is rejected.
+		added, replayErr := a.Metrics.Replay(sample)
+		if errors.Is(replayErr, v1.ErrNotFound) {
+			respondError(w, v1.Invalid("sample requires the current weighted binding and an elapsed timestamp"))
+			return
+		}
+		response(w, struct {
+			APIVersion string `json:"apiVersion"`
+			Added      bool   `json:"added"`
+		}{v1.Version, added}, replayErr)
 		return
 	}
 	added, err := a.Metrics.Add(sample)
